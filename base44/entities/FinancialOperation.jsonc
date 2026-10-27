@@ -1,0 +1,44 @@
+{
+  "name": "FinancialOperation",
+  "type": "object",
+  "properties": {
+    "resource": {
+      "type": "string"
+    },
+    "resource_id": {
+      "type": "string"
+    },
+    "key": {
+      "type": "string"
+    },
+    "fingerprint": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "prepared",
+        "complete"
+      ]
+    },
+    "effects": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "result": {
+      "type": "object"
+    }
+  },
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": false,
+    "update": false,
+    "delete": false
+  }
+}

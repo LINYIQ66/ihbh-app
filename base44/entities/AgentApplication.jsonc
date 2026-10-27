@@ -1,0 +1,108 @@
+{
+  "name": "AgentApplication",
+  "type": "object",
+  "properties": {
+    "applicant_user_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "uen": {
+      "type": "string",
+      "description": "Singapore UEN / business registration number"
+    },
+    "business_type": {
+      "type": "string",
+      "enum": [
+        "wellness",
+        "food",
+        "beauty",
+        "local_service",
+        "other"
+      ]
+    },
+    "business_address": {
+      "type": "string"
+    },
+    "business_description": {
+      "type": "string"
+    },
+    "license_file_uri": {
+      "type": "string"
+    },
+    "declaration": {
+      "type": "boolean",
+      "default": false
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "review_note": {
+      "type": "string"
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "applicant_user_id",
+    "name",
+    "email",
+    "business_name",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "$and": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.applicant_user_id": "{{user.id}}"
+        },
+        {
+          "data.status": "pending"
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

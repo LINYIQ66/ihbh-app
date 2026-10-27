@@ -1,0 +1,379 @@
+{
+  "commit": "81bba2390ce1a6f917be993762666ea81a396da1",
+  "findings": [
+    {
+      "id": "F01",
+      "priority": "P1",
+      "title": "会员资料缺少行级权限，可伪造付费会员",
+      "refs": [
+        [
+          "base44/entities/MemberProfile.jsonc",
+          46,
+          52
+        ],
+        [
+          "src/components/globest/cart/useDiscounts.js",
+          11,
+          14
+        ]
+      ],
+      "problem": "MemberProfile 整个实体没有 rls，字段也没有写保护；包含 email、tier、payment_status 和 Stripe 关联 ID。按仓库规则及 Base44 默认权限部署时，能够访问该实体的用户可读取其他会员资料，或创建/修改 paid + prestige 记录。购物折扣直接信任这些字段，前端按邮箱过滤不能形成访问控制。",
+      "evidence": "已检查实体完整定义；Base44 官方技能说明未定义 RLS 时所有记录对所有用户开放。没有对线上数据库执行匿名/跨用户请求，因此线上是否另有未同步规则仍需核实。内置 User 实体的特殊规则不被套用到本结论。",
+      "fix": "本人只读自己的会员记录，管理员可读全部；付费字段仅由服务端写入。以不可变 user_id 绑定会员并建立唯一性约束，取消默认 paid；在隔离环境验证匿名、本人、他人、管理员四种身份。"
+    },
+    {
+      "id": "F02",
+      "priority": "P1",
+      "title": "客户端可直接制造大量 HBH 返利",
+      "refs": [
+        [
+          "base44/functions/pointsLedger/entry.ts",
+          45,
+          55
+        ],
+        [
+          "base44/functions/pointsLedger/entry.ts",
+          32,
+          36
+        ]
+      ],
+      "problem": "spend 接收客户端 points、sgd、ref，未读取真实订单或校验积分与金额的关系，直接按 sgd × 0.5 发奖励。earn 只校验 read- 前缀，不验证内容存在、阅读行为或每日总量；不断换 key 即可继续领取。",
+      "evidence": "运行原始处理函数并模拟存储：余额 20，提交 points=1、sgd=1000000 后返回 200，余额变成 500019；两个不存在的 read-* 内容标识各领取 10 HBH。全部在离线内存中执行。",
+      "fix": "客户端只提交商品/订单 ID 和数量；服务端查询商品、定价、折扣及支付结果后计算扣款和返利。阅读奖励绑定真实内容与可验证事件，并设置原子唯一领取记录和账户每日额度。"
+    },
+    {
+      "id": "F03",
+      "priority": "P1",
+      "title": "积分扣款存在并发超支和不可恢复的半笔交易",
+      "refs": [
+        [
+          "base44/functions/pointsLedger/entry.ts",
+          18,
+          24
+        ],
+        [
+          "base44/functions/pointsLedger/entry.ts",
+          49,
+          54
+        ]
+      ],
+      "problem": "余额检查与写账是分开的查询，两个不同 ref 可同时通过检查；事后按 idem_key 删除重复行无法防止不同请求超支。扣款完成、奖励失败时，重试又因扣款 key 已存在被拒绝，无法补齐交易。转账的两边写入也需要同样的故障恢复设计。",
+      "evidence": "离线并发两笔 80 HBH 消费，初始 100，两个响应均 200，最终 -60。另注入奖励写入失败：第一次 500 已扣 10，使用同一 ref 重试 409，余额仍 90。模拟验证的是程序控制流，不是线上数据库并发测试。",
+      "fix": "将余额校验、扣减、账本与奖励放进受支持的事务，或使用按账户串行执行且可恢复的状态机。幂等记录须有原子唯一性；重试返回已完成结果或续做未完成步骤，不删除历史账本作为去重机制。"
+    },
+    {
+      "id": "F04",
+      "priority": "P1",
+      "title": "用户可直接创建可核销票券，绕过付款与积分兑换",
+      "refs": [
+        [
+          "base44/entities/Ticket.jsonc",
+          65,
+          74
+        ],
+        [
+          "src/pages/PointsMall.jsx",
+          18,
+          22
+        ],
+        [
+          "src/pages/Verify.jsx",
+          10,
+          13
+        ]
+      ],
+      "problem": "Ticket.create 只要求创建者为本人且 status=unused，不验证积分扣减、付款、活动/服务存在或领取次数。kind/title/code/ref_id 等均由客户端指定。门店核销仅按 code 查到 unused 就通过，不校验来源订单或发行证明。",
+      "evidence": "沿 PointsMall→Ticket.create→Verify 完整读取调用链和实体规则，确认没有服务端发行函数。按当前规则部署时，普通用户可跳过兑换页直接创建券；这是源码可见的授权缺口，未在真实门店核销。",
+      "fix": "禁止用户直接创建生效票券。服务端完成支付/原子积分扣减后发行，使用不可预测且唯一的券码，关联订单、发行原因、有效期与权益。核销使用条件更新，确保并发只能成功一次。"
+    },
+    {
+      "id": "F05",
+      "priority": "P1",
+      "title": "提现缺少后端金额与余额校验，负数申请可抬高可提现余额",
+      "refs": [
+        [
+          "base44/entities/Withdrawal.jsonc",
+          8,
+          9
+        ],
+        [
+          "base44/entities/Withdrawal.jsonc",
+          45,
+          54
+        ],
+        [
+          "base44/shared/dealerOverview.ts",
+          19,
+          23
+        ],
+        [
+          "src/pages/WithdrawReview.jsx",
+          12,
+          12
+        ]
+      ],
+      "problem": "提现金额只有 number 类型约束，create 只校验本人和 pending。最低金额、可提现余额仅在 WithdrawForm 校验。汇总把所有非 rejected 金额计入占用，负数占用反而增加 available。管理员通过按钮仅更新状态，没有再次核对余额、银行卡归属或原子冻结。",
+      "evidence": "原始 dealerOverview 的离线数据夹具：收入为 0，待审提现 amount=-1000，算出 available=1000。超额/并发提现也没有服务端预留保护。最终出款仍需财务线下操作，不将此描述为自动盗取银行资金。",
+      "fix": "提现走专用后端：以分为单位验证正数与最低额，核验收款账户归属，原子冻结可用余额。审批再次校验冻结记录，驳回和付款分别走幂等状态转换；实体拒绝用户直接写入。"
+    },
+    {
+      "id": "F06",
+      "priority": "P1",
+      "title": "采购价格与采购余额由客户端决定，可伪造余额和成本",
+      "refs": [
+        [
+          "base44/entities/PurchaseOrder.jsonc",
+          35,
+          41
+        ],
+        [
+          "base44/entities/PurchaseOrder.jsonc",
+          80,
+          89
+        ],
+        [
+          "base44/shared/dealerOverview.ts",
+          20,
+          24
+        ],
+        [
+          "src/components/globest/dealer/PurchaseOrderReview.jsx",
+          9,
+          9
+        ]
+      ],
+      "problem": "客户端直接写 items.price/qty、amount、balance_used、balance_credit、is_first，实体没有数值边界或一致性规则。汇总对 pending 也减去 balance_used，因此负值无需审核就能增大采购余额。审批只更新 status；收到货后，客户端单价成为 FIFO 成本，影响后续毛利。",
+      "evidence": "离线汇总一张 pending、balance_used=-1000 的采购单，得到采购余额 1000。代码中未见服务端按商品目录重算价格、首购额度或余额抵扣；实际收货/分润仍需管理员审核、确认付款和完成销售。",
+      "fix": "服务端只接受商品 ID、数量和是否使用余额；从可信目录/经销价格表算出金额，原子占用余额，首购标记由历史确定。敏感金额字段禁止用户写入，审批与收款时重新校验订单快照。"
+    },
+    {
+      "id": "F07",
+      "priority": "P1",
+      "title": "支付结果未等待，失败仍标已付款并可能消耗优惠券",
+      "refs": [
+        [
+          "src/components/globest/ExperienceProvider.jsx",
+          17,
+          17
+        ],
+        [
+          "src/components/globest/ExperienceProvider.jsx",
+          24,
+          27
+        ],
+        [
+          "src/components/globest/CartPanel.jsx",
+          20,
+          20
+        ],
+        [
+          "src/pages/PointsMall.jsx",
+          20,
+          21
+        ]
+      ],
+      "problem": "spendHbh 在调用异步 server 后立即返回 true，server 捕获错误只提示。CartPanel 随即记录 paid=true、清空购物车并更新优惠券；PointsMall 随即发券。购物订单仅保存在 localStorage，不是可由服务器核对的付款凭证。",
+      "evidence": "执行原始 spendHbh 和 recordPurchase 代码片段，模拟后端无成功结果，仍生成 paid=true 的订单。网络失败、其他设备已经消费或本地余额过期均可触发，不需要恶意修改前端。",
+      "fix": "让支付函数返回可等待且明确成功/失败的结果，调用方成功后再更新界面。更关键的是把订单、扣款、返利、券核销/发行放到同一服务端交易流程；失败保留购物车与未使用券。"
+    },
+    {
+      "id": "F08",
+      "priority": "P2",
+      "title": "代理审批状态可通过用户资料接口自行修改",
+      "refs": [
+        [
+          "base44/entities/User.jsonc",
+          13,
+          22
+        ],
+        [
+          "src/components/globest/PartnerApplicationForm.jsx",
+          17,
+          17
+        ],
+        [
+          "base44/functions/submitPartnerProduct/entry.ts",
+          6,
+          8
+        ]
+      ],
+      "problem": "partner_status 是无字段写保护的自定义 User 属性，申请页已使用 auth.updateMe 写该属性。后端 submitPartnerProduct 仅信任 user.partner_status=approved 作为代理资格。按默认自定义字段权限，用户可绕过代理审批；这不是内置 admin 角色提权。",
+      "evidence": "静态检查并对照官方 SDK 的 updateMe 自定义字段说明。商品仍被强制创建为 pending，因此确认的是绕过代理资格审核、取得投稿能力，不能据此声称可直接发布商品。线上 FLS 是否另外收紧尚未验证。",
+      "fix": "对 partner_status、invite_code、referred_by_code 等控制业务权限/归属的字段设置可信服务端写保护。申请走后端写 pending，只有管理员审批函数能写 approved；不依赖客户端字段白名单。"
+    },
+    {
+      "id": "F09",
+      "priority": "P2",
+      "title": "会员支付回调把测试支付当成正式付费",
+      "refs": [
+        [
+          "base44/functions/stripeMembershipWebhook/entry.ts",
+          15,
+          26
+        ],
+        [
+          "base44/functions/createMembershipCheckout/entry.ts",
+          8,
+          26
+        ]
+      ],
+      "problem": "通用 membership_tier 分支只检查 payment_status=paid，未区分 livemode，并写 payment_status=paid；同文件的 package_tier 分支却明确写 test。若该 webhook 接收合法签名的测试事件，测试支付会获得正式会员待遇。通用分支也未核对应用、实际金额/币种和价格 ID。",
+      "evidence": "离线模拟 Stripe 验签成功后返回 livemode=false 的会员事件，结果存为 prestige、paid。没有伪造 Stripe 签名，也未检查线上 webhook 密钥/模式；线上可触发性取决于端点配置和有效测试事件来源。",
+      "fix": "测试与正式端点/数据隔离，服务端显式验证预期模式；测试结果只写 test。绑定后端会员订单与 user_id，并核验应用 ID、金额、币种、价格和付款对象。"
+    },
+    {
+      "id": "F10",
+      "priority": "P2",
+      "title": "重复或乱序会员事件会覆盖较新的会员状态",
+      "refs": [
+        [
+          "base44/functions/stripeMembershipWebhook/entry.ts",
+          19,
+          32
+        ]
+      ],
+      "problem": "通用会员分支没有 event.id/session.id 幂等存储，也没有订单时间或版本判断；每次都覆盖 tier、payment_status、joined_at。升级后的旧普通会员事件重送会降级，退款后重送旧完成事件也可能恢复 paid。",
+      "evidence": "离线先应用 prestige 事件，再模拟较旧 standard 事件重送，会员变为 standard。测试事件由模拟验签返回，仅验证业务处理逻辑。未复现生产 Stripe 重试。",
+      "fix": "持久化支付事件唯一 ID，按订单版本与事件语义更新权益；重复事件返回已处理结果。明确升级、退款、撤销与迟到事件的状态转换，不能按到达顺序覆盖会员记录。"
+    },
+    {
+      "id": "F11",
+      "priority": "P2",
+      "title": "禁播只影响前端与登记表，Actor 未执行禁播",
+      "refs": [
+        [
+          "base44/actors/LiveBroadcast/entry.ts",
+          33,
+          43
+        ],
+        [
+          "src/components/globest/live/LiveBanAdmin.jsx",
+          5,
+          7
+        ]
+      ],
+      "problem": "host_start 校验登录和房间归属，却不查 LiveBan。管理员禁播仅写禁播记录、更新 LiveRoom，未关闭 Actor 会话；frame 分支也不检查禁播。已连接用户可能继续传帧，重新连接自己的房间也会重新置为 live。",
+      "evidence": "用原始 Actor 和模拟存储测试被禁用户启动自己的房间，收到开播成功且登记变为 live，读取禁播记录的次数为 0。未开摄像头、麦克风或真实直播。",
+      "fix": "在服务端开播时验证禁播，管理员禁播通过可信通道立即终止 Actor 主播会话并清理连接；禁止客户端自行恢复 live 状态。"
+    },
+    {
+      "id": "F12",
+      "priority": "P2",
+      "title": "AI 客服缺少应用层鉴权和额度控制",
+      "refs": [
+        [
+          "base44/functions/customerServiceReply/entry.ts",
+          5,
+          10
+        ]
+      ],
+      "problem": "customerServiceReply 直接用 service role 调用付费 LLM，没有 auth.me、账户/IP 额度、缓存或并发预算。若网关允许匿名调用，可匿名消耗额度；即便网关要求登录，普通账号仍缺少此函数的应用层配额。输入截断只限制单次内容，不限制调用次数。",
+      "evidence": "原始函数离线测试在没有用户身份校验的情况下调用 LLM 模拟器一次并返回 200。没有调用真实模型或消耗在线额度。平台网关鉴权与全局限流未验证，不能认定公网无条件可用。",
+      "fix": "明确匿名客服的业务需求；需要登录时校验用户。为匿名或登录用户配置服务端原子配额、并发限制、速率和总预算，设置模型输出上限与超时。"
+    },
+    {
+      "id": "F13",
+      "priority": "P2",
+      "title": "Windows 构建因大小写近似文件名解析冲突失败",
+      "refs": [
+        [
+          "src/pages/Discover.jsx",
+          5,
+          5
+        ],
+        [
+          "src/components/globest/local/LocalLife.jsx",
+          5,
+          5
+        ],
+        [
+          "src/components/globest/videos/VideoEditorialContent.jsx",
+          3,
+          3
+        ]
+      ],
+      "problem": "扩展名省略的 WellnessCategories/LocalServices 导入在大小写不敏感文件系统上先命中 wellnessCategories.js/localServices.js 数据模块，而不是同名 JSX 组件；数据模块没有 default 导出。",
+      "evidence": "Windows、Node 24.13.0、npm 11.6.2、锁定 Vite 8.2.0 下，两次 npm run build 均报 3 条 MISSING_EXPORT；第二次独立运行排除了同时执行静态检查的干扰。未声称已在 Linux 构建失败。缺少 Base44 环境变量的警告与此次导出错误是不同问题。",
+      "fix": "组件导入明确写 .jsx，或将数据模块改为不冲突的 *Data.js 名称；在 Windows 与 Linux CI 都验证构建。"
+    }
+  ],
+  "reproduction": [
+    {
+      "test": "Client-controlled spending reward",
+      "initial": 20,
+      "pointsSpent": 1,
+      "claimedSgd": 1000000,
+      "finalBalance": 500019,
+      "confirmed": true
+    },
+    {
+      "test": "Unknown article keys rewarded",
+      "finalBalance": 20,
+      "confirmed": true
+    },
+    {
+      "test": "Concurrent spending exceeds balance",
+      "initial": 100,
+      "spends": [
+        80,
+        80
+      ],
+      "statuses": [
+        200,
+        200
+      ],
+      "finalBalance": -60,
+      "confirmed": true
+    },
+    {
+      "test": "Partial debit cannot complete on retry",
+      "statuses": [
+        500,
+        409
+      ],
+      "finalBalance": 90,
+      "confirmed": true
+    },
+    {
+      "test": "Frontend marks purchase paid without backend success",
+      "paid": true,
+      "confirmed": true
+    },
+    {
+      "test": "Valid sandbox event grants paid membership",
+      "storedTier": "prestige",
+      "paymentStatus": "paid",
+      "confirmed": true
+    },
+    {
+      "test": "Older valid membership event overwrites newer tier",
+      "tierBefore": "prestige",
+      "tierAfter": "standard",
+      "confirmed": true
+    },
+    {
+      "test": "Schema inspection only, not live RLS enforcement",
+      "memberProfileRlsAbsent": true,
+      "partnerStatusFieldRlsAbsent": true,
+      "confirmed": true
+    },
+    {
+      "test": "Negative pending values inflate computed balances (schema enforcement not simulated)",
+      "earnings": 0,
+      "available": 1000,
+      "purchaseBalance": 1000,
+      "confirmed": true
+    },
+    {
+      "test": "Actor starts stream without consulting ban records",
+      "roomStatus": "live",
+      "banQueries": 0,
+      "confirmed": true
+    },
+    {
+      "test": "Customer service handler invokes paid integration without auth check (gateway not tested)",
+      "llmCalls": 1,
+      "confirmed": true
+    }
+  ]
+}

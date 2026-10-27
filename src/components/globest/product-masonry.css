@@ -1,0 +1,30 @@
+#catalog .product-grid.product-masonry,
+.globest-app .product-masonry {
+  display: grid;
+  grid-auto-rows: 1px;
+  row-gap: 0;
+  align-items: start;
+}
+
+.product-masonry > * {
+  min-width: 0;
+  align-self: start;
+}
+
+.product-masonry > :nth-child(4n + 1) { --product-visual-ratio: 3 / 4; }
+.product-masonry > :nth-child(4n + 2) { --product-visual-ratio: 1 / 1; }
+.product-masonry > :nth-child(4n + 3) { --product-visual-ratio: 4 / 5; }
+.product-masonry > :nth-child(4n) { --product-visual-ratio: 5 / 4; }
+
+#catalog .product-masonry .product-visual,
+.product-masonry .masonry-product-visual {
+  aspect-ratio: var(--product-visual-ratio, 1 / 1);
+}
+
+#catalog .product-masonry .product-info h3 {
+  height: auto;
+  min-height: 0;
+}
+
+#catalog .product-masonry .product-subtitle { height: auto; }
+#catalog .product-masonry .product-subtitle:empty { display: none; }

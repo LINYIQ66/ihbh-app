@@ -1,0 +1,60 @@
+
+> base44-app@0.0.0 test
+> node --test tests/*.test.mjs
+
+✔ actor denies forged ownership and wrong instance IDs (2.6199ms)
+✔ actor denies banned starts and ends an active ban on its managed tick (2.3481ms)
+✔ actor rejects reconnecting a connection id with a different identity (0.8952ms)
+✔ concurrent host starts admit one host (0.9349ms)
+✔ partner: channel share and gross margin match the worked example (2.3841ms)
+✔ official: channel share and gross margin match the worked example (0.2708ms)
+✔ agent: channel share and gross margin match the worked example (0.2023ms)
+✔ agent: first-sale 8% is HQ-funded; 5/3/2 recipients balance their official payer exactly (1.8563ms)
+✔ official: the referred official's own partner funds all three peer rewards (0.3396ms)
+✔ no referral chain, no referral award; missing mandatory payer blocks rather than inventing funding (0.6045ms)
+✔ invalid hierarchy, self referral, nonfinite and fractional cents are rejected (0.4274ms)
+✔ cent rounding is half-up per recipient and the payer debit equals rounded credits (20.3745ms)
+✔ only the configured super admin may switch partner funding; policy writes are idempotent (6.2092ms)
+✔ partner switch affects future settlements only, with equal recipient credits in both modes (40.7438ms)
+✔ historical stock migration requires exact reviewed lots and does not rewrite existing costs (1.996ms)
+✔ cancelling an older reservation releases its exact cheap lot without changing later order cost (0.3201ms)
+✔ cross-lot costs, out-of-order completion, oversell and historical mismatches (0.338ms)
+✔ all three dealer price tiers come from verified server fields, never the retail price or request (0.4185ms)
+✔ two concurrent first sales award 8% once; replay never doubles any account or funding debit (7.428ms)
+✔ settlement resumes after a recipient write fails without paying the payer or recipient twice (2.7934ms)
+✔ settlement category is immutable from procurement; client cannot replace it at completion (0.4833ms)
+✔ a zero-receipt completion keeps the loss and does not consume the first paid-sale bonus (4.1575ms)
+✔ legacy points require explicit reconciliation before any spending (4.9422ms)
+✔ checkout rejects a changed quoted total before debiting (7.3004ms)
+✔ withdrawable income waits for complete settlement and includes its negative entries (0.7429ms)
+✔ concurrent debits cannot overspend (0.8969ms)
+✔ same request races publish once and return the same receipt (5.0076ms)
+✔ failure after debit before effects is recovered without another charge (0.9723ms)
+✔ lost CAS response is recovered from the account outbox (0.7147ms)
+✔ client spend/SGD and invented article IDs never mint credit (0.7677ms)
+✔ game ignores supplied reward and requires an actual server board merge (0.7671ms)
+✔ checkout reprices catalog and cannot turn a failed payment into an order (1.0243ms)
+✔ failed recipient credit can be retried without double debit (2.4787ms)
+✔ simultaneous opposite transfers terminate and preserve total funds (4.5762ms)
+✔ withdrawals reject negative/nonfinite values and foreign bank cards (4.3741ms)
+✔ purchase prices and first-order credits come from server; approval does not fund balance (1.8416ms)
+✔ event capacity serializes across different users and venue overlaps fail (2.9297ms)
+✔ ticket redemption requires issued provenance, authorization and receipt (1.0959ms)
+✔ membership validates price/app/buyer; test purchase cannot downgrade live tier (1.2915ms)
+✔ AI quota is atomic across concurrent requests (1.671ms)
+✔ stale finalization cannot reapply an effect after status cycles (0.9189ms)
+✔ retail refund is idempotent and reverses the shopping reward (1.5074ms)
+✔ settlement races and lost publication recover without duplicate earnings (1.5581ms)
+✔ financial entities deny direct client writes, including forged paid profiles (10.0682ms)
+✔ all backend source files parse as TypeScript without syntax errors (321.8783ms)
+✔ privileged business/AI endpoints reject anonymous requests before accessing service data (178.957ms)
+✔ an editable partner hint does not grant product publishing privileges (3.5016ms)
+✔ ordinary users cannot invoke financial reconciliation (9.3336ms)
+ℹ tests 48
+ℹ suites 0
+ℹ pass 48
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1024.6299

@@ -1,0 +1,73 @@
+{
+  "date": "2026-10-27",
+  "timezone": "Asia/Singapore",
+  "branch": "fix/security-audit",
+  "commit": "c3e021fb2feec4afc6aa2c8dc9750b7970e84d6f",
+  "clean_worktree": true,
+  "pushed": false,
+  "merged": false,
+  "deployed": false,
+  "evidence": {
+    "repository": {
+      "full_name": "LINYIQ66/globest-mall",
+      "private": true,
+      "default_branch": "main",
+      "permissions": {
+        "admin": true,
+        "maintain": true,
+        "push": true,
+        "triage": true,
+        "pull": true
+      },
+      "http_error": null
+    },
+    "workflows": {
+      "total_count": 0,
+      "workflows": []
+    },
+    "runs": {
+      "total_count": 0,
+      "runs": []
+    },
+    "hooks": [
+      {
+        "name": "web",
+        "active": true,
+        "events": [
+          "push"
+        ],
+        "destination_host": "app.base44.com",
+        "last_response_code": 200
+      }
+    ],
+    "deployments": [],
+    "environments": {
+      "total_count": 0,
+      "environments": []
+    },
+    "pages": {
+      "http_error": 404
+    },
+    "main_protection": {
+      "http_error": 403
+    },
+    "rulesets": {
+      "http_error": 403
+    },
+    "check_runs": [],
+    "statuses": {
+      "state": "pending",
+      "statuses": []
+    }
+  },
+  "preflight": {
+    "files": 520,
+    "secret_pattern_findings": [],
+    "excluded_path_findings": [],
+    "changed_since_tested_archive": [
+      "README.md",
+      "docs/FINANCE_OPERATIONS.md"
+    ],
+    "note": "Pattern scan is bounded; not a proof that all secret formats are absent."
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "date": "2026-10-27",
+  "tests_passed": 48,
+  "rule_version": "dealer-v3-2026-10-27",
+  "sources": [
+    {
+      "file": "HBH集团手册(1).pdf",
+      "sha256": "8800f84891d8a202267bd6a2fcaacdd8a417884b5a108bb96d80988db71cc04d"
+    },
+    {
+      "file": "官方(1).pdf",
+      "sha256": "2c6439faaa4040bba062d8cef6891b66de52eb75f6bb9d1abb7946fc45bfd8fe"
+    },
+    {
+      "file": "总代(1).pdf",
+      "sha256": "d1830188ddb936b7d9cdc1c462a21a9c922bf613581750b0218ff41fdc119898"
+    }
+  ],
+  "confirmation": [
+    "8% of first paid sale",
+    "eligible components stack",
+    "maximum three peer levels",
+    "super admin selects HQ or designated Partner funding for Partner peers"
+  ],
+  "deployed": false
+}

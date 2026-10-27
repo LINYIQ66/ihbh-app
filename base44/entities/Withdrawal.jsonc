@@ -1,0 +1,91 @@
+{
+  "name": "Withdrawal",
+  "type": "object",
+  "properties": {
+    "user_name": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 0.01
+    },
+    "bank": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "review_note": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "transaction_id": {
+      "type": "string"
+    },
+    "transaction_status": {
+      "type": "string",
+      "enum": [
+        "prepared",
+        "posted"
+      ]
+    },
+    "transaction_revision": {
+      "type": "string",
+      "rls": {
+        "write": false
+      }
+    },
+    "legacy_reviewed": {
+      "type": "boolean"
+    },
+    "reviewed_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "amount",
+    "bank",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "$and": [
+            {
+              "$or": [
+                {
+                  "data.user_id": "{{user.id}}"
+                },
+                {
+                  "created_by_id": "{{user.id}}"
+                }
+              ]
+            },
+            {
+              "data.transaction_status": {
+                "$ne": "prepared"
+              }
+            }
+          ]
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": false,
+    "update": false,
+    "delete": false
+  }
+}

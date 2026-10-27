@@ -1,0 +1,15 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowRight, Check, Crown } from 'lucide-react';
+import { useExperience } from '@/components/globest/ExperienceProvider';
+
+const plans = [
+  { key: 'standard', name: ['普通会员', 'Standard'], label: ['日常滋养', 'Everyday wellness'], intro: ['从日常好物出发，建立属于自己的健康生活节奏。', 'Start with everyday essentials and build a wellness routine that feels like yours.'], highlights: [['会员专享价', 'Member pricing'], ['浏览全球甄选商品', 'Explore curated global products'], ['管理个人资料与收货地址', 'Manage your profile and shipping address']] },
+  { key: 'vip', name: ['VIP 会员', 'VIP'], label: ['成长进阶', 'Growing together'], intro: ['关注每一次成长，也让您与 Globest 的连接更加紧密。', 'Make room for every milestone and stay closer to the Globest community.'], highlights: [['双倍成长积分', 'Double growth points'], ['在账户中查看积分余额', 'View your points balance in your account'], ['管理专属邀请链接与记录', 'Manage your invite link and referrals']] },
+  { key: 'prestige', name: ['尊享会员', 'Prestige'], label: ['细致关怀', 'Thoughtful care'], intro: ['为重视个性化体验的您，呈现更细致的会员服务方向。', 'A more personal approach for those seeking a considered wellness experience.'], highlights: [['尊享顾问服务', 'Prestige concierge'], ['探索 iHBH 健康问答', 'Explore the iHBH wellness assistant'], ['在我的中心查看等级与资料', 'Review your tier and profile in My Center']] }
+];
+
+export default function MembershipPlans() {
+  const { t } = useExperience();
+  return <section className="mb-8 rounded-2xl border border-border bg-card p-5 sm:p-7"><div className="mb-6 flex items-start gap-3"><span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"><Crown size={19}/></span><div><h2 className="font-heading text-xl font-semibold">{t('会员入会方案', 'Membership plans')}</h2><p className="mt-1 text-sm text-muted-foreground">{t('选择适合您的滋养旅程，了解每一等级的专属礼遇。', 'Find your wellness path and discover what makes each tier special.')}</p></div></div><div className="grid gap-4 md:grid-cols-3">{plans.map(plan => <article key={plan.key} className={`membership-plan flex flex-col rounded-xl border border-border p-5 ${plan.key==='vip'?'featured':''}`}><span className="text-xs font-medium tracking-wide text-primary">{t(...plan.label)}</span><h3 className="mt-3 font-heading text-xl font-semibold">{t(...plan.name)}</h3><p className="mt-3 min-h-16 text-sm leading-relaxed text-muted-foreground">{t(...plan.intro)}</p><div className="mt-5 border-t pt-4"><p className="mb-3 text-xs font-semibold text-primary">{t('会员礼遇', 'TIER HIGHLIGHTS')}</p><ul className="space-y-3">{plan.highlights.map(([zh,en]) => <li key={en} className="flex items-start gap-2 text-sm"><Check size={16} className="mt-0.5 shrink-0 text-primary"/><span>{t(zh,en)}</span></li>)}</ul></div></article>)}</div><div className="mt-6 flex flex-wrap items-center justify-between gap-3 border-t pt-5"><p className="text-sm text-muted-foreground">{t('等级与积分余额可在我的中心查看。', 'See your tier and points balance in your account.')}</p><Link className="inline-flex items-center gap-2 text-sm font-semibold text-primary" to="/crm?role=user&tab=account">{t('查看我的会员资料', 'View my membership')}<ArrowRight size={16}/></Link></div></section>;
+}

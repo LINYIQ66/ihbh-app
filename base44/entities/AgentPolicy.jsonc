@@ -1,0 +1,66 @@
+{
+  "name": "AgentPolicy",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "per_tx_limit": {
+      "type": "number",
+      "default": 50
+    },
+    "daily_limit": {
+      "type": "number",
+      "default": 200
+    },
+    "approval_above": {
+      "type": "number",
+      "default": 30
+    },
+    "use_points": {
+      "type": "boolean",
+      "default": true
+    },
+    "compare_prices": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "user_id"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.user_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "$and": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.user_id": "{{user.id}}"
+        }
+      ]
+    },
+    "update": {
+      "data.user_id": "{{user.id}}"
+    },
+    "delete": {
+      "data.user_id": "{{user.id}}"
+    }
+  }
+}

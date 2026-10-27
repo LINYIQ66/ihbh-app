@@ -1,0 +1,21 @@
+.customer-module :is(button,a,input,select,summary):focus-visible,.navigation :is(a,button):focus-visible,.main-header :is(a,button,input):focus-visible,.sub-header a:focus-visible{outline:3px solid hsl(var(--primary));outline-offset:3px}
+.customer-module button:disabled{cursor:not-allowed;opacity:.6}
+:is(a,button,input,select,textarea,summary,[tabindex]):focus-visible{outline:3px solid hsl(var(--primary));outline-offset:3px}
+.site-footer :is(a,button):focus-visible{outline-color:hsl(var(--primary-foreground))}
+.panel-scroll-body{padding-bottom:max(1.5rem,env(safe-area-inset-bottom));min-height:0}
+.globest-app [id]{scroll-margin-top:6rem}
+@media(max-width:767px){
+  .globest-app .site-footer{display:none!important}
+  .globest-app .navigation{padding-bottom:calc(.5rem + env(safe-area-inset-bottom))!important;min-height:calc(4rem + env(safe-area-inset-bottom))}
+  .globest-app .main-content{padding-bottom:calc(5.5rem + env(safe-area-inset-bottom))}
+  .globest-app .floating-claim{bottom:calc(5rem + env(safe-area-inset-bottom))!important}
+  .globest-app .sub-header{flex-direction:column;align-items:stretch;gap:6px}
+  .globest-app .sub-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;width:100%}
+  .globest-app .sub-links a,.globest-app .sub-links a:last-child{display:flex;justify-content:center;gap:3px;min-width:0;min-height:44px;font-size:13px}
+}
+.live-customer-dialog{width:min(100%,48rem)!important;max-width:48rem!important;max-height:94dvh;overflow-y:auto;padding:1rem!important;background:hsl(var(--background));color:hsl(var(--foreground))}
+.live-customer-stage{position:relative;aspect-ratio:9/16;width:min(100%,22rem);max-height:70dvh;margin:auto;overflow:hidden;border-radius:var(--radius);background:hsl(var(--foreground));color:hsl(var(--background))}
+.live-customer-stage:fullscreen{width:100%;height:100%;max-height:none;aspect-ratio:auto}
+.live-customer-stage video,.live-customer-stage canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.live-customer-stage .signal-status{position:absolute;inset:0;display:grid;place-content:center;text-align:center;padding:1.5rem;background:hsl(var(--foreground) / .8)}
+@media(max-width:640px){.live-customer-dialog{max-height:100dvh;height:100dvh;border-radius:0!important}.live-customer-stage{max-height:66dvh}}

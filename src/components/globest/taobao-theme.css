@@ -1,0 +1,17 @@
+.globest-app{--tb-orange:#ff5000;--tb-red:#ff2a2a;--tb-yellow:#ffd400;font-size:16px;background:#f4f4f4}
+.globest-app h1,.globest-app h2,.globest-app h3{font-weight:800!important;letter-spacing:-.01em}
+.globest-app h2{font-size:clamp(22px,2.4vw,30px)!important}
+.globest-app .announcement{background:linear-gradient(90deg,var(--tb-orange),var(--tb-red));color:#fff;font-weight:700}
+.globest-app .header-search{border:2px solid var(--tb-orange)!important;border-radius:999px!important;overflow:hidden;background:#fff}
+.globest-app .header-search button{background:linear-gradient(90deg,#ff7a00,var(--tb-orange))!important;color:#fff!important;font-weight:800;font-size:16px;border-radius:999px!important;padding:0 26px}
+.globest-app .sub-header a{font-weight:800;font-size:15px}
+.globest-app .sub-header a:hover{color:var(--tb-orange)}
+.globest-app .welcome-line{font-weight:700}
+.globest-app .quick-actions>a{background:#fff;border-radius:16px;border:none;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.globest-app .quick-actions b{font-size:17px;font-weight:800}
+.globest-app .quick-icon{background:linear-gradient(135deg,#ff8a00,var(--tb-red))!important;color:#fff!important;border-radius:14px}
+.globest-app .product-grid>*{background:#fff;border-radius:14px;border:none!important;transition:box-shadow .2s,transform .2s}
+.globest-app .product-grid>*:hover{box-shadow:0 8px 22px rgba(255,80,0,.18);transform:translateY(-2px)}
+.globest-app .product-grid strong,.globest-app .product-grid .price{color:var(--tb-orange)!important;font-weight:800;font-size:20px}
+.globest-app .primary-btn{background:linear-gradient(90deg,#ff7a00,var(--tb-orange))!important;color:#fff!important;font-weight:800;border-radius:999px!important}
+@media(min-width:768px){.globest-app .site-footer{display:block!important}}

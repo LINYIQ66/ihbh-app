@@ -1,0 +1,70 @@
+{
+  "name": "Coupon",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "promo",
+        "alliance",
+        "delivery"
+      ],
+      "default": "promo"
+    },
+    "rule": {
+      "type": "string",
+      "description": "Display text e.g. \u6ee1100\u51cf10"
+    },
+    "min_amount": {
+      "type": "number",
+      "default": 0,
+      "description": "Threshold S$, 0 = no threshold"
+    },
+    "off_amount": {
+      "type": "number",
+      "default": 0,
+      "description": "Fixed S$ off"
+    },
+    "percent": {
+      "type": "number",
+      "default": 0,
+      "description": "Percent off, e.g. 20 = 8\u6298"
+    },
+    "partner": {
+      "type": "string"
+    },
+    "expires": {
+      "type": "string",
+      "format": "date"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "required": [
+    "title",
+    "rule"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

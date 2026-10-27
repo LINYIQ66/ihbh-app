@@ -1,0 +1,9 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ChevronRight, Crown, FileText, Gift, MapPin, ShieldCheck, Store, Users, UserRound } from 'lucide-react';
+
+export default function MemberAccountTools({ user }) {
+  const links = /** @type {Array<[import('lucide-react').LucideIcon, string, string]>} */ ([[Crown, '会员权益', '/crm?role=user&tab=members'], [Gift, '优惠券', '/coupons'], [Users, '邀请好友', '/crm?role=user&tab=referrals'], [Store, '经销商中心', '/crm?role=user&tab=dealers'], [FileText, '推广文章', '/crm?role=user&tab=promotions']]);
+  if (user.role === 'admin') links.push([ShieldCheck, '商品管理', '/crm?role=admin&tab=products'], [Users, '异业联盟', '/alliance-admin']);
+  return <section aria-label="账户服务" className="rounded-2xl border border-border bg-card p-4 sm:p-5"><h2 className="mb-3 font-semibold text-primary">账户服务</h2><div className="grid grid-cols-2 gap-2 sm:grid-cols-3"><a href="#profile-details" className="flex min-h-14 items-center gap-2 rounded-xl bg-muted/50 p-3 text-sm text-primary focus-visible:ring-2 focus-visible:ring-primary"><UserRound size={18} aria-hidden="true"/>个人资料<ChevronRight size={14} className="ml-auto" aria-hidden="true"/></a><a href="#member-addresses" className="flex min-h-14 items-center gap-2 rounded-xl bg-muted/50 p-3 text-sm text-primary focus-visible:ring-2 focus-visible:ring-primary"><MapPin size={18} aria-hidden="true"/>收货地址<ChevronRight size={14} className="ml-auto" aria-hidden="true"/></a>{links.map(([Icon, title, path]) => <Link key={path} to={path} className="flex min-h-14 items-center gap-2 rounded-xl bg-muted/50 p-3 text-sm text-primary focus-visible:ring-2 focus-visible:ring-primary"><Icon size={18} aria-hidden="true"/>{title}<ChevronRight size={14} className="ml-auto" aria-hidden="true"/></Link>)}</div></section>;
+}

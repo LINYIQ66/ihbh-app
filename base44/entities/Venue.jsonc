@@ -1,0 +1,83 @@
+{
+  "name": "Venue",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "area": {
+      "type": "string"
+    },
+    "capacity": {
+      "type": "number"
+    },
+    "price_per_hour": {
+      "type": "number"
+    },
+    "available": {
+      "type": "boolean",
+      "default": true
+    },
+    "finance_state": {
+      "type": "object",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        "write": false
+      }
+    },
+    "finance_version": {
+      "type": "number",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        "write": false
+      }
+    },
+    "finance_pending": {
+      "type": "string",
+      "rls": {
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        },
+        "write": false
+      }
+    }
+  },
+  "required": [
+    "name",
+    "price_per_hour"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

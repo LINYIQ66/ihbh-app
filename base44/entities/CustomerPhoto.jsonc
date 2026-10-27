@@ -1,0 +1,97 @@
+{
+  "name": "CustomerPhoto",
+  "type": "object",
+  "properties": {
+    "file_uri": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string",
+      "enum": [
+        "before",
+        "after",
+        "month",
+        "face"
+      ],
+      "default": "before"
+    },
+    "service": {
+      "type": "string",
+      "enum": [
+        "oxygen",
+        "face",
+        "herbal",
+        "beauty"
+      ],
+      "default": "oxygen"
+    },
+    "session_no": {
+      "type": "number"
+    },
+    "energy_score": {
+      "type": "number"
+    },
+    "sleep_score": {
+      "type": "number"
+    },
+    "skin_score": {
+      "type": "number"
+    },
+    "note": {
+      "type": "string"
+    },
+    "taken_at": {
+      "type": "string",
+      "format": "date"
+    },
+    "share_consent": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "file_uri",
+    "stage"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

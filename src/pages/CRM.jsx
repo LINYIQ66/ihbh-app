@@ -1,0 +1,37 @@
+import RetailOrderReview from '@/components/globest/RetailOrderReview';
+import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
+import { useSearchParams } from 'react-router-dom';
+import { useExperience } from '@/components/globest/ExperienceProvider';
+import CrmOverview from '@/components/globest/CrmOverview';
+import CustomerTable from '@/components/globest/CustomerTable';
+import CustomerEditor from '@/components/globest/CustomerEditor';
+import CrmSecondary from '@/components/globest/CrmSecondary';
+import MembershipPlans from '@/components/globest/MembershipPlans';
+import GeneCellPackages from '@/components/globest/GeneCellPackages';
+import MemberTierTable from '@/components/globest/MemberTierTable';
+import PartnerReview from '@/components/globest/PartnerReview';
+import AdminProductCatalog from '@/components/globest/AdminProductCatalog';
+import AdminDashboard from '@/components/globest/AdminDashboard';
+import ReferralCenter from '@/components/globest/ReferralCenter';
+import MemberAccount from '@/components/globest/MemberAccount';
+import DealerWorkspace from '@/components/globest/dealer/DealerWorkspace';
+import CrmCenterButtons from '@/components/globest/CrmCenterButtons';
+import DealerAdministration from '@/components/globest/dealer/DealerAdministration';
+import MemberPromotions from '@/components/globest/MemberPromotions';
+const userTabKeys = ['account', 'dealers', 'members', 'referrals', 'promotions'];
+export default function CRM() {
+  const {t} = useExperience(); const [params, setParams] = useSearchParams(); const currentUser=useQuery({queryKey:['crm-user'],queryFn:async()=>await base44.auth.isAuthenticated()?base44.auth.me():null}); const role=params.get('role')==='admin' && currentUser.data?.role==='admin' ? 'admin':'user'; const [tab,setTab]=useState(params.get('tab') || (role === 'admin' ? 'overview' : 'account')); const [editing,setEditing]=useState(false); const [customer,setCustomer]=useState(null);
+  useEffect(()=>{const requested=params.get('tab');if(requested)setTab(requested);},[params]);
+  const titles={user:['我的中心','My Center'],agent:['健康伙伴工作台','Partner workspace'],merchant:['商家联盟工作台','Merchant workspace'],admin:['客户关系管理','Customer relationships']};
+  const edit = value=>{setCustomer(value);setEditing(true);};
+  const adminTabs=[['overview','运营看板','Operations'],['members','会员分层','Member tiers'],['customers','客户档案','Contacts'],['pipeline','跟进管道','Pipeline'],['orders','订单记录','Orders'],['partners','代理与联盟','Partners'],['review','代理审核','Partner review'],['products','商品管理','Products'],['dealer-settings','经销账务','Dealer accounting'],['connections','渠道接入','Connections']];
+  const userTabs=[['account','我的中心','My Center'],['dealers','经销商','Dealers']];
+  const selectTab = key => { setTab(key); setParams(previous => { const next = new URLSearchParams(previous); next.set('tab', key); return next; }); };
+  const tabs=role==='user'?userTabs:adminTabs;
+  useEffect(()=>{if(currentUser.isPending)return;if(role==='user' && !userTabKeys.includes(tab))setTab('account');if(role==='admin' && !adminTabs.some(([key])=>key===tab))setTab('overview');},[role,tab,currentUser.isPending]);
+  if (currentUser.isPending) return <p role="status" className="page-inner">正在加载我的中心…</p>;
+  if (currentUser.isError) return <p role="alert" className="page-inner text-destructive">账户读取失败，请稍后重试。</p>;
+  return <div className="page-inner"><div className="page-title"><span className="eyebrow">GLOBEST RELATIONSHIP WORKSPACE</span><h1>{t(...(titles[role] || titles.admin))}</h1><p>{role==='user'?t('个人资料、地址和订单归我的中心；账单、库存及分润收益归经销商。','Manage your profile, addresses and orders in My Center; bills, stock and earnings in Dealers.'):t('看见每一位客户，记录每一次连接，让关系创造长久价值。','See every customer, remember every connection, and build relationships that last.')}</p></div>{tab==='members'&&<><MembershipPlans/>{role==='user'&&<GeneCellPackages/>}</>}{role==='admin'&&tab!=='overview'&&<CrmOverview/>}{role==='user'?<CrmCenterButtons active={tab==='dealers'?'dealers':'account'} onSelect={selectTab}/>:<div className="crm-tabs">{tabs.map(([key,z,e])=><button type="button" aria-pressed={tab===key} className={tab===key?'active':''} onClick={()=>selectTab(key)} key={key}>{t(z,e)}</button>)}</div>}{tab==='account'?<MemberAccount/>:tab==='overview'?<AdminDashboard/>:tab==='members'?(role==='user'?null:<MemberTierTable/>):tab==='dealers'&&role==='user'?<DealerWorkspace/>:tab==='dealer-settings'&&role==='admin'?<DealerAdministration user={currentUser.data}/>:tab==='referrals'?<ReferralCenter/>:tab==='promotions'?<MemberPromotions/>:tab==='customers'?<CustomerTable onEdit={edit}/>:tab==='review'?<PartnerReview/>:tab==='orders'&&role==='admin'?<RetailOrderReview/>:tab==='products'?<AdminProductCatalog/>:<CrmSecondary tab={tab} onEdit={edit}/>} {editing && <CustomerEditor key={customer?.id || 'new'} customer={customer} onClose={()=>setEditing(false)}/>}</div>;
+}

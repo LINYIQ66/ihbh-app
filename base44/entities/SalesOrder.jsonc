@@ -1,0 +1,87 @@
+{
+  "name": "SalesOrder",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "total": {
+      "type": "number"
+    },
+    "points": {
+      "type": "number"
+    },
+    "date": {
+      "type": "string"
+    },
+    "paid": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "paid",
+        "cancel_requested",
+        "cancelled",
+        "shipped"
+      ]
+    },
+    "transaction_status": {
+      "type": "string"
+    },
+    "transaction_id": {
+      "type": "string"
+    },
+    "transaction_revision": {
+      "type": "string",
+      "rls": {
+        "write": false
+      }
+    },
+    "reward": {
+      "type": "number"
+    },
+    "coupon_id": {
+      "type": "string"
+    },
+    "payment_ref": {
+      "type": "string"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "review_note": {
+      "type": "string"
+    }
+  },
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "$and": [
+            {
+              "data.user_id": "{{user.id}}"
+            },
+            {
+              "data.transaction_status": "posted"
+            }
+          ]
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": false,
+    "update": false,
+    "delete": false
+  }
+}

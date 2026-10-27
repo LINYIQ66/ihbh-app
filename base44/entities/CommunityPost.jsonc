@@ -1,0 +1,73 @@
+{
+  "name": "CommunityPost",
+  "type": "object",
+  "properties": {
+    "author_name": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string"
+    },
+    "topic": {
+      "type": "string",
+      "enum": [
+        "wellness",
+        "ginseng",
+        "promotion"
+      ],
+      "default": "wellness"
+    },
+    "ginseng_level": {
+      "type": "number"
+    },
+    "product_id": {
+      "type": "string"
+    },
+    "product_name_zh": {
+      "type": "string"
+    },
+    "product_name_en": {
+      "type": "string"
+    },
+    "promotion_id": {
+      "type": "string"
+    },
+    "likes": {
+      "type": "number",
+      "default": 0
+    }
+  },
+  "required": [
+    "author_name",
+    "content",
+    "topic"
+  ],
+  "rls": {
+    "read": {},
+    "create": {},
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

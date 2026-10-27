@@ -1,0 +1,92 @@
+{
+  "name": "LiveRoom",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "host_user_id": {
+      "type": "string"
+    },
+    "host_name": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "live",
+        "ended"
+      ],
+      "default": "ended"
+    },
+    "viewer_count": {
+      "type": "number",
+      "default": 0
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ended_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "title",
+    "host_user_id",
+    "host_name",
+    "status",
+    "started_at"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "$and": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.host_user_id": "{{user.id}}"
+        },
+        {
+          "data.status": "ended"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "$and": [
+            {
+              "created_by_id": "{{user.id}}"
+            },
+            {
+              "data.host_user_id": "{{user.id}}"
+            },
+            {
+              "data.status": "ended"
+            }
+          ]
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

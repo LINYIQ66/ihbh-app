@@ -1,0 +1,5 @@
+import React from 'react';
+
+export default function LiveInteractions(){
+  return <section className="live-community-grid"><div className="live-panel live-chat live-glass"><h3>Live chat</h3><div className="live-bubble">This feels so inspiring.</div><div className="live-bubble">谢谢分享，期待下一次见面。</div><div className="live-bubble live-new">The ingredients look beautiful.</div><div className="live-bubble">Good conversations are worth the wait</div></div><div className="live-panel live-poll live-glass"><h3>Poll &amp; Q&amp;A</h3><p>Meet the growers, discover the ingredients, and get closer to your wellness ritual.</p><label><input type="radio" name="wellness-poll"/> Wellness ritual</label><label><input type="radio" name="wellness-poll"/> Kitchen wellness</label><label><input type="radio" name="wellness-poll"/> Good conversations</label><div className="live-meter"><i/></div></div><div className="live-challenge"><h3>Wellness challenge</h3><p>从长白山到新加坡<br/>一场关于滋养的相遇</p><button className="live-gold-btn">Take part</button></div></section>;
+}

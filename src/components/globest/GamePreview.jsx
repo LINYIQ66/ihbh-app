@@ -1,0 +1,9 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight, Gift, Sprout, Users } from 'lucide-react';
+import GinsengPlant from '@/components/globest/GinsengPlant';
+import { useExperience } from '@/components/globest/ExperienceProvider';
+export default function GamePreview() {
+  const { state, t, claim, claimed } = useExperience();
+  return <div className="game-preview"><div className="flex justify-between items-center"><span className="eyebrow"><Sprout size={13}/>{t('养参小园', 'THE GINSENG GARDEN')}</span><Link to="/game" className="icon-btn" aria-label={t('打开游戏', 'Open game')}><ArrowUpRight size={19}/></Link></div><h2>{t('种下健康，收获惊喜', 'Grow a little goodness')}</h2><p className="muted text-sm mt-2">{t('合成珍稀山参 · 解锁滋养乐趣', 'Merge your roots. Nurture your daily ritual.')}</p><Link to="/game" className="preview-plants" aria-label={t('开始人参合成', 'Play ginseng merge')}><div className="plant-pod small"><GinsengPlant level={1}/><span>{t('幼参', 'Seedling')}</span></div><span className="merge-plus">+</span><div className="plant-pod"><GinsengPlant level={3}/><span>{t('珍品山参', 'Wild ginseng')}</span></div><span className="garden-spark">✦</span></Link><button disabled={claimed('daily')} onClick={() => claim('daily', 20)} className="primary-btn w-full"><Gift size={16}/>{claimed('daily') ? t('今日已签到', 'Checked in today') : t('每日签到领积分', 'Claim your daily reward')}<span className="ml-auto text-[#DCC99E]">+20 HBH</span></button><div className="flex justify-between text-xs mt-4 muted"><span>{t(`已合成 ${state.merges} 次`, `${state.merges} merges made`)}</span><Link to="/crm?role=user&tab=referrals" className="flex gap-1 items-center"><Users size={13}/>{t('邀请好友，一起养参', 'Grow with friends')}<ArrowUpRight size={12}/></Link></div></div>;
+}

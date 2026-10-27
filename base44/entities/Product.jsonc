@@ -1,0 +1,142 @@
+{
+  "name": "Product",
+  "type": "object",
+  "properties": {
+    "name_zh": {
+      "type": "string"
+    },
+    "name_en": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "origin_zh": {
+      "type": "string"
+    },
+    "origin_en": {
+      "type": "string"
+    },
+    "price": {
+      "type": "number"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "hbh": {
+      "type": "number"
+    },
+    "image": {
+      "type": "string"
+    },
+    "tag_zh": {
+      "type": "string"
+    },
+    "tag_en": {
+      "type": "string"
+    },
+    "description_zh": {
+      "type": "string"
+    },
+    "description_en": {
+      "type": "string"
+    },
+    "source_url": {
+      "type": "string"
+    },
+    "is_demo": {
+      "type": "boolean",
+      "default": true
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "published",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "partner_id": {
+      "type": "string"
+    },
+    "partner_name": {
+      "type": "string"
+    },
+    "review_note": {
+      "type": "string"
+    },
+    "compliance_checks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "dealer_enabled": {
+      "type": "boolean",
+      "default": false
+    },
+    "dealer_sale_category": {
+      "type": "string",
+      "enum": [
+        "general",
+        "genecells"
+      ]
+    },
+    "dealer_price_partner": {
+      "type": "number",
+      "minimum": 0.01
+    },
+    "dealer_price_official": {
+      "type": "number",
+      "minimum": 0.01
+    },
+    "dealer_price_agent": {
+      "type": "number",
+      "minimum": 0.01
+    }
+  },
+  "required": [
+    "name_zh",
+    "name_en",
+    "category",
+    "price",
+    "image"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.approval_status": "published"
+        },
+        {
+          "data.partner_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

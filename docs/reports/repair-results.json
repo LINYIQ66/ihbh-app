@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-27",
+  "repository": "https://github.com/LINYIQ66/globest-mall",
+  "base_commit": "2344905cab2b80965f17e0271a3e3c7f74108752",
+  "repair_commit": "c3e021fb2feec4afc6aa2c8dc9750b7970e84d6f",
+  "branch": "fix/security-audit",
+  "state": "local committed repair; not pushed or deployed",
+  "verification": {
+    "npm_ci": "passed",
+    "tests": {
+      "passed": 48,
+      "failed": 0
+    },
+    "frontend_typecheck": "passed",
+    "eslint_errors": "none",
+    "vite_build": "passed",
+    "npm_audit": {
+      "info": 0,
+      "low": 0,
+      "moderate": 0,
+      "high": 0,
+      "critical": 0,
+      "total": 0
+    },
+    "git_diff_check": "passed"
+  },
+  "source_files": 520,
+  "archive_sha256": "6adcf9e5e71d29b4efbb789955facbfe790ac9bc963d657a2e9fadb136afdbf4",
+  "limits": [
+    "No live Base44/Deno integration or browser end-to-end run",
+    "No real Stripe payment/webhook verification",
+    "Legacy production records not migrated",
+    "npm audit covers npm lockfile, not Deno npm imports/platform/remote services",
+    "P2P media revocation requires a controlled relay against malicious clients",
+    "Stripe refund/dispute entitlement reversal requires operational review"
+  ],
+  "findings": [
+    {
+      "id": "F01",
+      "title": "会员资料缺少行级权限，可伪造付费会员",
+      "status": "implemented locally; platform verification pending",
+      "repair": "会员实体改为本人/管理员读取、仅服务端写入；移除默认 paid，折扣只接受服务端已确认的正式付费资料。"
+    },
+    {
+      "id": "F02",
+      "title": "客户端可直接制造大量 HBH 返利",
+      "status": "implemented locally; platform verification pending",
+      "repair": "移除任意金额 spend；订单由真实商品定价。阅读验证内容、服务端计时和每日次数；游戏移动、合并和每日奖励由服务端验证。"
+    },
+    {
+      "id": "F03",
+      "title": "积分扣款存在并发超支和不可恢复的半笔交易",
+      "status": "implemented locally; platform verification pending",
+      "repair": "采用单记录原子 CAS、规范账户状态、固定 ID 的待发布记录和幂等回执；加入失败恢复与旧回放版本隔离。转账可恢复。"
+    },
+    {
+      "id": "F04",
+      "title": "用户可直接创建可核销票券，绕过付款与积分兑换",
+      "status": "implemented locally; platform verification pending",
+      "repair": "禁止客户端直接发券；兑换、活动和场地预约统一服务端发行，核销检查来源、状态、支付和权限。"
+    },
+    {
+      "id": "F05",
+      "title": "提现缺少后端金额与余额校验，负数申请可抬高可提现余额",
+      "status": "implemented locally; platform verification pending",
+      "repair": "服务端验证最低 S$50、有限金额、银行卡归属、已结算收益和预留余额；申请与审核按账户串行提交。"
+    },
+    {
+      "id": "F06",
+      "title": "采购价格与采购余额由客户端决定，可伪造余额和成本",
+      "status": "implemented locally; platform verification pending",
+      "repair": "采购按真实经销等级拿货价计算，审批不提前发放信用额；出货冻结具体成本批次，取消仅释放原批次。另补充奖励承担方支出账和超级管理员开关，见经销商专项报告。"
+    },
+    {
+      "id": "F07",
+      "title": "支付结果未等待，失败仍标已付款并可能消耗优惠券",
+      "status": "implemented locally; platform verification pending",
+      "repair": "前端等待服务端成功才显示支付、消耗优惠券或清空购物车；新增实际订单、管理员发货和取消退款流程。"
+    },
+    {
+      "id": "F08",
+      "title": "代理审批状态可通过用户资料接口自行修改",
+      "status": "implemented locally; platform verification pending",
+      "repair": "partner_status 限管理员写；商品发布直接检查已批准申请，不能通过自改用户资料获取资格。"
+    },
+    {
+      "id": "F09",
+      "title": "会员支付回调把测试支付当成正式付费",
+      "status": "implemented locally; platform verification pending",
+      "repair": "Stripe 回调验证应用、买方、价格、数量、币种和付款状态；测试付款写 test，不能获得正式付费权益。"
+    },
+    {
+      "id": "F10",
+      "title": "重复或乱序会员事件会覆盖较新的会员状态",
+      "status": "implemented locally; platform verification pending",
+      "repair": "Stripe session 幂等回执与账户状态共同控制权益；重复或较低等级事件不会覆盖较高正式会员权益。"
+    },
+    {
+      "id": "F11",
+      "title": "禁播只影响前端与登记表，Actor 未执行禁播",
+      "status": "implemented locally; platform verification pending",
+      "repair": "Actor 校验真实房主和实例 ID，连接/消息/定时检查封禁；客户端接收结束事件后停止媒体和连接。"
+    },
+    {
+      "id": "F12",
+      "title": "AI 客服缺少应用层鉴权和额度控制",
+      "status": "implemented locally; platform verification pending",
+      "repair": "AI 接口先鉴权，使用服务端原子配额和频率限制；图片分析只接收实际上传文件，移除任意文件 URI 入口。"
+    },
+    {
+      "id": "F13",
+      "title": "Windows 构建因大小写近似文件名解析冲突失败",
+      "status": "implemented locally; platform verification pending",
+      "repair": "重命名两个大小写冲突的数据模块并更新引用；修复并扩大前端类型检查，更新有安全公告的依赖。"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "name": "GlobalProduct",
+  "type": "object",
+  "properties": {
+    "category": {
+      "type": "string"
+    },
+    "category_zh": {
+      "type": "string"
+    },
+    "name_en": {
+      "type": "string"
+    },
+    "name_zh": {
+      "type": "string"
+    },
+    "brand": {
+      "type": "string"
+    },
+    "price_usd": {
+      "type": "number"
+    },
+    "description_zh": {
+      "type": "string"
+    },
+    "amazon_url": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "category",
+    "name_en",
+    "name_zh"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

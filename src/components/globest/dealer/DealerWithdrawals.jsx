@@ -1,0 +1,13 @@
+import React from 'react';
+import { useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
+import { useExperience } from '@/components/globest/ExperienceProvider';
+import WithdrawForm from '@/components/globest/earn/WithdrawForm';
+const states = { pending: '审核中', approved: '已通过，待财务线下打款', rejected: '已驳回' };
+export default function DealerWithdrawals({ user, summary }) {
+  const qc = useQueryClient(); const { notify } = useExperience();
+  const wd = useInfiniteQuery({ queryKey: ['wd', user.id], initialPageParam: null, queryFn: ({ pageParam }) => base44.entities.Withdrawal.filter({ transaction_status: {$ne:'prepared'}, $or: [{ user_id: user.id }, { created_by_id: user.id }] }, { sort: '-created_date', limit: 20, ...(pageParam ? { cursor: pageParam } : {}) }), getNextPageParam: page => page.has_more ? page.next_cursor : undefined });
+  const cards = useQuery({ queryKey: ['cards', user.id], queryFn: () => base44.entities.BankCard.filter({ $or: [{ user_id: user.id }, { created_by_id: user.id }] }, { sort: '-created_date', limit: 50 }) });
+  const items = wd.data?.pages.flatMap(page => page.items) || [];
+  return <div className="space-y-4">{cards.isPending ? <p role="status" className="text-sm text-muted-foreground">正在加载收款账户…</p> : cards.isError ? <p role="alert" className="text-sm text-destructive">收款账户读取失败。</p> : <WithdrawForm user={user} cards={cards.data.items} available={summary.available} notify={notify} onDone={() => Promise.all(['wd', 'dealer-overview'].map(key => qc.invalidateQueries({ queryKey: [key, user.id] })))}/>}<section className="rounded-2xl border border-border bg-card p-4"><h2 className="mb-3 font-semibold text-primary">提现记录</h2>{wd.isPending && <p role="status" className="text-sm text-muted-foreground">正在加载提现记录…</p>}{wd.isError && <p role="alert" className="text-sm text-destructive">提现记录读取失败。</p>}{wd.isSuccess && !items.length && <p role="status" className="py-4 text-center text-sm text-muted-foreground">暂无提现记录。</p>}<ul className="divide-y divide-border">{items.map(item => <li key={item.id} className="flex flex-wrap justify-between gap-2 py-3 text-sm"><span>S${item.amount.toFixed(2)} · {item.bank}</span><span className="text-muted-foreground">{states[item.status]}{item.review_note && `（${item.review_note}）`}</span></li>)}</ul>{wd.hasNextPage && <button type="button" disabled={wd.isFetchingNextPage} onClick={() => wd.fetchNextPage()} className="mt-3 min-h-11 w-full rounded-lg border border-border text-sm text-primary">{wd.isFetchingNextPage ? '正在加载…' : '加载更多提现记录'}</button>}</section></div>;
+}

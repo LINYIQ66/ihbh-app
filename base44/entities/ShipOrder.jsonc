@@ -1,0 +1,248 @@
+{
+  "name": "ShipOrder",
+  "type": "object",
+  "properties": {
+    "product_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "qty": {
+      "type": "number"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "sale",
+        "self_use",
+        "downline"
+      ],
+      "default": "sale"
+    },
+    "customer": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number",
+      "default": 0
+    },
+    "dealer_user_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "shipped",
+        "completed",
+        "cancelled"
+      ],
+      "default": "shipped"
+    },
+    "received_amount": {
+      "type": "number",
+      "default": 0
+    },
+    "cost_amount": {
+      "type": "number"
+    },
+    "sale_category": {
+      "type": "string",
+      "enum": [
+        "general",
+        "genecells"
+      ]
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_day": {
+      "type": "string",
+      "format": "date",
+      "description": "新加坡时间的订单完成日期，用于每日实收业绩汇总"
+    },
+    "verified_by": {
+      "type": "string"
+    },
+    "first_paid_sale": {
+      "type": "boolean",
+      "default": false
+    },
+    "idempotency_key": {
+      "type": "string"
+    },
+    "settlement_state": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "processing",
+        "posted",
+        "failed"
+      ],
+      "default": "pending"
+    },
+    "settlement_token": {
+      "type": "string",
+      "default": ""
+    },
+    "settlement_until": {
+      "type": "number",
+      "default": 0
+    },
+    "settlement_error": {
+      "type": "string"
+    },
+    "settlement_snapshot": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string"
+          },
+          "component": {
+            "type": "string"
+          },
+          "amount_cents": {
+            "type": "integer"
+          },
+          "rate": {
+            "type": "number"
+          },
+          "note": {
+            "type": "string"
+          },
+          "payer_kind": {
+            "type": "string"
+          },
+          "payer_user_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "user_id",
+          "component",
+          "amount_cents",
+          "note"
+        ]
+      }
+    },
+    "transaction_status": {
+      "type": "string"
+    },
+    "transaction_id": {
+      "type": "string"
+    },
+    "finance_state": {
+      "type": "object",
+      "rls": {
+        "write": false,
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "finance_version": {
+      "type": "number",
+      "rls": {
+        "write": false,
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "finance_pending": {
+      "type": "string",
+      "rls": {
+        "write": false,
+        "read": {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      }
+    },
+    "transaction_revision": {
+      "type": "string",
+      "rls": {
+        "write": false
+      }
+    },
+    "stock_allocations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "lot_id": {
+            "type": "string"
+          },
+          "qty": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "unit_cost_cents": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "required": [
+          "lot_id",
+          "qty",
+          "unit_cost_cents"
+        ]
+      }
+    },
+    "settlement_rule_version": {
+      "type": "string"
+    },
+    "settlement_context": {
+      "type": "object"
+    },
+    "stock_reviewed_by": {
+      "type": "string"
+    },
+    "stock_review_note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "product_id",
+    "name",
+    "qty",
+    "kind"
+  ],
+  "rls": {
+    "read": {
+      "$and": [
+        {
+          "$or": [
+            {
+              "created_by_id": "{{user.id}}"
+            },
+            {
+              "data.dealer_user_id": "{{user.id}}"
+            },
+            {
+              "user_condition": {
+                "role": "admin"
+              }
+            }
+          ]
+        },
+        {
+          "data.transaction_status": {
+            "$ne": "prepared"
+          }
+        }
+      ]
+    },
+    "create": false,
+    "update": false,
+    "delete": false
+  }
+}

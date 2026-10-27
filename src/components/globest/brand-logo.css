@@ -1,0 +1,22 @@
+.globest-app .brand-logo-frame { display: block; flex-shrink: 0; }
+.globest-app .brand-wellness-typing { display: inline-block; line-height: 1.4; animation: brand-wellness-typewriter 3.2s steps(6, end) 3 both; }
+@keyframes brand-wellness-typewriter {
+  0% { clip-path: inset(0 100% 0 0); }
+  60%, 100% { clip-path: inset(0 0 0 0); }
+}
+@media (max-width: 767px) {
+  .globest-app .brand-logo-frame { position: relative; overflow: hidden; width: 96px; height: 52px; }
+  .globest-app .brand-logo-frame .brand-logo-image { position: absolute; width: 150px; height: 140px; max-width: none; left: -23px; top: -45px; }
+}
+@media (min-width: 768px) {
+  .globest-app .brand-lockup { align-items: flex-end; align-items: last baseline; }
+  .globest-app .brand-logo-frame { height: 58px; overflow: hidden; transform: translateY(-16px); }
+  .globest-app .brand-wellness-typing { transform: translateY(-16px); }
+}
+@media (min-width: 1024px) {
+  .globest-app .brand-logo-frame { height: 80px; }
+  .globest-app .brand-lockup .brand-lockup-copy strong { letter-spacing: 2px; column-gap: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .globest-app .brand-wellness-typing { animation: none; clip-path: none; }
+}

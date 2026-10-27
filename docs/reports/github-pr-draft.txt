@@ -1,0 +1,32 @@
+Title: Fix financial authorization and dealer settlement accuracy
+Base: main
+Head: fix/security-audit
+State: Draft — do not auto-merge or publish
+
+Client-controlled financial operations and incomplete dealer settlement rules
+could produce incorrect balances, procurement costs, referral rewards, or
+withdrawals. This repair moves validation and recoverable posting to server
+code, freezes shipment cost allocations and settlement snapshots, and records
+the actual reward funder's expense.
+
+Dealer rules use integer cents, the first paid sale for the one-time 8%, and
+at most three peer referrers at 5%/3%/2%. Official peer rewards are funded by the
+selling Official's direct Partner; Agent peer rewards by the selling Agent's
+direct Official. A super-admin-only setting selects HQ or a designated Partner
+for Partner peer rewards. Previously completed snapshots retain their rule and
+payer when configuration changes.
+
+Other repairs cover financial entity permissions, checkout and membership
+verification, inventory and ticket capacity, retail administration, live-session
+authorization, AI quotas, frontend types, and dependency vulnerabilities.
+
+Validation: 48 automated tests pass; frontend typecheck, ESLint, Vite build, and
+git diff --check pass. Tests mock Base44; live platform integration and Stripe
+webhook acceptance have not been run.
+
+Deployment: the repository has an active Base44 push webhook. Base44 documents
+main-branch sync and a separate Publish step. This PR must remain a review draft
+until a separate staging app passes acceptance, SUPER_ADMIN_USER_ID and catalog
+prices are configured, and legacy finance data is backed up and reconciled.
+Release all entities, shared modules, functions, actors, and frontend together.
+See README.md and docs/GITHUB_RELEASE.md for prerequisites and limitations.

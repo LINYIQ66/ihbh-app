@@ -1,0 +1,81 @@
+{
+  "name": "PointsLedger",
+  "type": "object",
+  "properties": {
+    "user_id": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "checkin",
+        "purchase",
+        "referral",
+        "merchant",
+        "redeem",
+        "adjust",
+        "interaction",
+        "game",
+        "transfer_in",
+        "transfer_out"
+      ]
+    },
+    "note": {
+      "type": "string"
+    },
+    "idem_key": {
+      "type": "string"
+    },
+    "counterparty": {
+      "type": "string"
+    },
+    "balance_after": {
+      "type": "number"
+    },
+    "transaction_id": {
+      "type": "string"
+    },
+    "transaction_status": {
+      "type": "string",
+      "enum": [
+        "prepared",
+        "posted"
+      ]
+    }
+  },
+  "required": [
+    "user_id",
+    "amount",
+    "type",
+    "idem_key"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "$and": [
+            {
+              "data.user_id": "{{user.id}}"
+            },
+            {
+              "data.transaction_status": {
+                "$ne": "prepared"
+              }
+            }
+          ]
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": false,
+    "update": false,
+    "delete": false
+  }
+}

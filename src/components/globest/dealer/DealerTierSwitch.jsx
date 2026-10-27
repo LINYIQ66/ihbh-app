@@ -1,0 +1,8 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Crown, ShieldCheck, Store } from 'lucide-react';
+import { getDealerTier, dealerLevelKeys } from '@/components/globest/dealer/dealerTierData';
+const icons = { partner: Crown, official: ShieldCheck, agent: Store };
+export default function DealerTierSwitch({ selected, onSelect, account }) {
+  return <section aria-label="经销等级" className="grid grid-cols-3 gap-2 sm:gap-4">{dealerLevelKeys.map(key => { const tier = getDealerTier(key); const Icon = icons[key]; return <article key={key} className={selected === key ? 'rounded-2xl border-2 border-primary bg-primary/5 p-3 sm:p-5' : 'rounded-2xl border-2 border-border bg-card p-3 sm:p-5'}><button type="button" aria-pressed={selected === key} onClick={() => onSelect(key)} className="min-h-11 w-full rounded text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"><Icon size={20} className="mb-3 text-primary" aria-hidden="true"/><strong className="text-base text-primary sm:text-lg">{tier.zh}</strong><span className="mt-1 block text-xs text-muted-foreground">{account?.active && account.tier === key ? '当前有效身份' : '查看等级权益'}</span></button><p className="mt-3 text-xs text-muted-foreground">全业返利 <strong className="text-primary">{tier.rebate}%</strong></p><Link to={`/dealer-levels/${key}`} className="mt-3 inline-flex min-h-11 items-center rounded text-xs text-primary underline focus-visible:ring-2 focus-visible:ring-primary">拿货价与权益</Link></article>; })}</section>;
+}

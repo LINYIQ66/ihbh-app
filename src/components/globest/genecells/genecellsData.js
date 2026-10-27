@@ -1,0 +1,17 @@
+const B = 'https://base44.app/api/apps/6aa3280ca2d875c1b77cdd8e/files/mp/public/6aa3280ca2d875c1b77cdd8e/';
+export const gallery = ['c90e0f75b_genecells-0','5983ba430_genecells-1','344871fe1_genecells-2','f458730e3_genecells-3','5a6d4aca4_genecells-4','704be0b56_genecells-5','3aea7c28e_genecells-6','80b055952_genecells-7','487475737_genecells-8','284b6e150_genecells-9','9507f140c_genecells-10','cab6f95cb_genecells-11','35c193b22_genecells-12','2f002eefd_genecells-13','2d399b0c5_genecells-14','d0a6cf615_genecells-15','931806954_genecells-16','bf3f8b318_genecells-17','a35413780_genecells-18','7623f5d15_genecells-19','66fa2e233_genecells-20','e3193bff6_genecells-21','71a1f7056_genecells-22','0a9fa9f34_genecells-23','75ba54848_genecells-24','0d1acec77_genecells-25','c07f485c9_genecells-26','e269d100d_genecells-27','ceaaf4463_genecells-28','f333c42d5_genecells-29','9cc2649c8_genecells-30','70c9984b4_genecells-31','5f83fa71d_genecells-32','2b46fe66a_genecells-33','f1257a20d_genecells-34','8befc0c3c_genecells-35','b08642063_genecells-36','49ce51ca9_genecells-37','1d7067b89_genecells-38','eaa30f07a_genecells-39','2510f9aa3_genecells-40','8ad4e7f3c_genecells-41','31886bee7_genecells-42','e274bac84_genecells-43','0b28785d8_genecells-44','befa43290_genecells-45','1daadccdd_genecells-46'].map(n => `${B}${n}.jpg`);
+
+export const products = [
+  { zh: '光子抗衰片（细胞平衡基础片）', en: 'Photon Anti-Aging Tablets', tagZh: '通用款 · 全细胞抗老', tagEn: 'Unisex · Full-cell anti-aging', ingZh: 'NMN + PQQ + PS + 亚精胺 + 谷胱甘肽', ingEn: 'NMN, PQQ, PS, Spermidine, Glutathione', useZh: '每日睡前服用两片', useEn: 'Two tablets daily, half an hour after dinner' },
+  { zh: '女性生命软胶囊', en: "Women's Life Softgels", tagZh: '女性款 · 卵巢内分泌养护', tagEn: 'Women · Ovarian & endocrine care', ingZh: '冻干鹿胎盘 + 月见草油 + 南非醉茄 + 达米阿那 + 黑升麻', ingEn: 'Deer placenta, Evening Primrose Oil, Ashwagandha, Damiana, Black Cohosh', useZh: '餐后：基础片 2 片 + 女性胶囊 3 粒', useEn: 'After meals: 2 base tablets + 3 capsules' },
+  { zh: '男性力量软胶囊', en: "Men's Power Softgels", tagZh: '男性款 · 活力与前列腺', tagEn: 'Men · Vitality & prostate', ingZh: '冻干鹿茸 + 东革阿里 + 刺蒺藜 + 锯棕榈 + 南瓜籽油', ingEn: 'Deer antler, Tongkat Ali, Tribulus, Saw Palmetto, Pumpkin Seed Oil', useZh: '餐后：基础片 2 片 + 男性胶囊 2 粒', useEn: 'After meals: 2 base tablets + 2 capsules' }
+];
+
+export const stats = [['+256%', 'NAD+ 水平提升', 'NAD+ levels'], ['+164%', '深度睡眠时间', 'Deep sleep time'], ['+78.5%', '受试者精力值', 'Energy levels'], ['5000+', '临床受试者', 'Participants']];
+
+export const stages = [['14', '缓解表层不适（干涩/乏力/浅眠）', 'Relieve dryness, fatigue, poor sleep'], ['28', '机能回升（精力/肤色提亮）', 'Restore vitality and brighter tone'], ['60', '全身系统重置，持续延缓老化', 'Whole-body reset']];
+
+export const tiers = [
+  { tier: 'standard', coins: 1500, zh: '普通会员', en: 'Standard Member', perks: [['GeneCells 产品礼包（SGD 1,500）', 'GeneCells package (SGD 1,500)'], ['全场会员专享价', 'Member pricing storewide'], ['1500 HBH 成长积分', '1,500 HBH growth points'], ['HBH 体验店健康咨询', 'Experience-store wellness consult']] },
+  { tier: 'vip', coins: 5000, zh: 'VIP 会员', en: 'VIP Member', perks: [['GeneCells 全套礼包（SGD 5,000）', 'Full GeneCells set (SGD 5,000)'], ['双倍 HBH 成长积分', 'Double HBH growth points'], ['专属健康顾问 1 对 1 跟进', 'Dedicated 1-on-1 wellness advisor'], ['新品优先体验与活动邀请', 'Priority new-product access & events'], ['推荐分润资格', 'Referral reward eligibility']] }
+];

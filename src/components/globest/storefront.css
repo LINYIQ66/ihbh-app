@@ -1,0 +1,71 @@
+.globest-app .main-header { background: hsl(var(--card)); }
+.globest-app .brand-lockup { display: flex; align-items: center; gap: 13px; flex-shrink: 0; text-decoration: none; }
+.globest-app .brand-logo-crop { display: block; position: relative; overflow: hidden; width: 108px; height: 59px; flex-shrink: 0; background: hsl(var(--card)); }
+.globest-app .brand-logo-art { position: absolute; width: 160px; height: 149px; max-width: none; left: -23px; top: -47px; }
+.globest-app .brand-lockup-copy { display: flex; flex-direction: column; border-left: 1px solid hsl(var(--border)); padding-left: 13px; gap: 7px; }
+.globest-app .brand-lockup-copy strong { color: hsl(var(--storefront-green)); font-family: var(--font-body); font-size: 23px; font-weight: 600; letter-spacing: -.8px; white-space: nowrap; }
+.globest-app .brand-lockup-copy small { color: hsl(var(--muted-foreground)); font-size: 11px; letter-spacing: .3px; }
+.globest-app .header-search { border-color: hsl(var(--storefront-green)); border-radius: 999px; padding-right: 4px; }
+.globest-app .header-search button { background: hsl(var(--storefront-green)); border-radius: 0 999px 999px 0; }
+.globest-app .sub-header { background: hsl(var(--storefront-green)); border-bottom-color: hsl(var(--storefront-green)); }
+.globest-app .sub-links a, .globest-app .sub-links a:first-child, .globest-app .sub-header .demo-label { color: hsl(var(--primary-foreground)); }
+.globest-app .sub-links a:hover { color: hsl(var(--storefront-gold)); }
+.globest-app .mall-page { background: hsl(var(--card)); }
+.globest-app .hero-background-video { position: absolute; inset: 0; height: 100%; width: 100%; object-fit: cover; object-position: center; }
+.globest-app .hero-shade { pointer-events: none; background: linear-gradient(90deg, hsl(var(--primary) / .87), hsl(var(--primary) / .6) 42%, hsl(var(--primary) / .1) 85%); }
+.globest-app .hero-video-controls { position: absolute; z-index: 3; top: 14px; right: 14px; display: flex; gap: 2px; align-items: center; padding: 2px 4px; border: 1px solid hsl(var(--storefront-gold) / .5); border-radius: 999px; color: hsl(var(--primary-foreground)); background: hsl(var(--primary) / .7); backdrop-filter: blur(12px); }
+.globest-app .hero-video-controls button { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; }
+.globest-app .hero-video-controls button:hover { background: hsl(var(--primary-foreground) / .14); }
+.globest-app .hero-video-controls > span { max-width: 150px; font-size: 11px; padding: 9px; }
+.globest-app .hero-video-controls > svg { margin-left: 8px; }
+.globest-app .hero-copy { padding-top: 39px; }
+.globest-app .mall-page .quick-actions { border-color: hsl(var(--border)); background: hsl(var(--card)); }
+.globest-app .mall-page .quick-icon { color: hsl(var(--storefront-green)); background: hsl(var(--storefront-soft)); }
+.globest-app .mall-page .section-heading h2 { border-left: 3px solid hsl(var(--storefront-green)); padding-left: 11px; }
+.globest-app .mall-page .catalog-filters { background: hsl(var(--storefront-soft)); border-color: hsl(var(--border)); }
+.globest-app .mall-page .category-list button.active, .globest-app .mall-page .catalog-tabs button.active { color: hsl(var(--storefront-green)); background: hsl(var(--card)); border-color: hsl(var(--storefront-green) / .22); }
+.globest-app .mall-page .catalog-toolbar { padding: 8px 10px; border-radius: 7px; background: hsl(var(--storefront-soft)); }
+.globest-app .mall-page .product-grid { gap: 12px; }
+.globest-app .mall-page .product-card { border-color: hsl(var(--border)); box-shadow: none; }
+.globest-app .mall-page .product-visual { aspect-ratio: 1.16 / 1; }
+.globest-app .mall-page .product-info { padding: 11px 12px; }
+.globest-app .mall-page .price-row { padding-top: 8px; margin-top: 10px; }
+.globest-app .mall-page .price-row strong { color: hsl(var(--storefront-green)); }
+.globest-app .mall-page .add-cart { background: hsl(var(--storefront-green)); }
+.product-detail-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px; align-items: start; }
+.product-detail-image { width: 100%; height: 390px; border: 1px solid hsl(var(--border)); border-radius: 12px; background: hsl(var(--card)); }
+.product-detail-copy { min-width: 0; }
+.product-detail-title { color: hsl(var(--storefront-green)); font-family: var(--font-heading); font-size: 24px; line-height: 1.35; }
+.product-detail-origin { margin-top: 12px; color: hsl(var(--muted-foreground)); line-height: 1.8; }
+.product-detail-description { margin: 20px 0; padding-top: 16px; border-top: 1px solid hsl(var(--border)); line-height: 1.9; }
+.product-detail-source { color: hsl(var(--storefront-green)); text-decoration: underline; text-underline-offset: 3px; }
+.product-detail-price { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 24px; }
+.product-detail-price b { font-size: 30px; color: hsl(var(--storefront-green)); }
+.product-detail-copy .primary-btn { background: hsl(var(--storefront-green)); border-color: hsl(var(--storefront-green)); }
+@media (max-width: 1350px) and (min-width: 768px) {
+  .globest-app .parent-brand { display: none; }
+  .globest-app .brand-lockup-copy strong { font-size: 21px; }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .globest-app .brand-lockup-copy { max-width: 190px; }
+}
+@media (max-width: 767px) {
+  .globest-app .brand-lockup { gap: 7px; flex: 1; min-width: 0; }
+  .globest-app .brand-logo-crop { width: 70px; height: 40px; }
+  .globest-app .brand-logo-art { width: 106px; height: 99px; left: -15px; top: -31px; }
+  .globest-app .brand-lockup-copy { padding-left: 8px; gap: 4px; }
+  .globest-app .brand-lockup-copy strong { font-size: 17px; letter-spacing: -.5px; white-space: normal; }
+  .globest-app .brand-lockup-copy small { font-size: 11px; line-height: 1.45; max-width: 138px; }
+  .globest-app .main-header { column-gap: 4px; }
+  .globest-app .header-actions { gap: 2px; }
+  .globest-app .language-btn { gap: 4px; }
+  .globest-app .cart-trigger { min-width: 38px; width: 38px; }
+  .globest-app .hero-copy { padding-top: 68px; max-width: 96%; }
+  .globest-app .hero-video-controls { top: 10px; right: 10px; }
+  .globest-app .hero-shade { background: linear-gradient(90deg, hsl(var(--primary) / .86), hsl(var(--primary) / .56) 60%, hsl(var(--primary) / .24)); }
+  .globest-app .mall-page .catalog-toolbar { padding: 5px; }
+  .globest-app .mall-page .product-grid { gap: 10px; }
+  .globest-app .mall-page .product-info { padding: 10px; }
+  .product-detail-layout { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .product-detail-image { height: 270px; }
+}

@@ -1,0 +1,6 @@
+import React from 'react';
+import { Bell, Check } from 'lucide-react';
+
+export default function LiveReminder({ saved, follow, t }){
+  return <><section className="live-reminder"><div className="live-reminder-icon">◉</div><div><h3>{t('期待每一次真诚分享','Good conversations are worth the wait')}</h3><p>{t('当前未连接直播服务，也没有正在播放的视频。关注记录仅保存在本机；实时推流、直播互动、视频观看奖励与开播通知待后续接入。','No streaming service is connected and no video is currently playing. Interests are saved on this device only. Streaming, live chat, viewing rewards and notifications will require a later connection.')}<br/>Good conversations are worth the wait</p></div><button className="live-gold-btn" onClick={follow}>{saved?<Check size={15}/>:<Bell size={15}/>} {saved?t('已关注 · 点击取消','Interested · tap to remove'):t('关注首场直播','Save my interest')}</button></section><p className="live-footnote">Our first wellness session is being planned. Hosts and timing will be announced once confirmed.<br/>No streaming service is connected and no video is currently playing. Interests are saved on this device only. Streaming, live chat, viewing rewards and notifications will require a later connection.</p></>;
+}

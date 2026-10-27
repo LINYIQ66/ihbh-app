@@ -1,0 +1,15 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowUpRight, Users, Store, ShieldCheck, UserRound, Gift } from 'lucide-react';
+import ResponsivePanel from '@/components/globest/ResponsivePanel';
+import AboutHBS from '@/components/globest/AboutHBS';
+import { useExperience } from '@/components/globest/ExperienceProvider';
+export default function UtilityPanel({ type, setType }) {
+  const { state, t, claim, claimed } = useExperience(); const navigate = useNavigate();
+  const titles = { wallet: t('我的积分', 'My points'), role: t('角色体验入口', 'Explore role portals'), sources: t('HBH 健康产品 · 全球好物', 'HBH Wellness · Global Finds') };
+  return <ResponsivePanel wide={type === 'sources'} open={!!type} onOpenChange={() => setType(null)} title={titles[type] || ''} description={type === 'sources' ? t('关于我们 · 健康、美丽、快乐', 'About us · Health, beauty, happiness') : t('Globest Mall · 香港九珍堂', 'Globest Mall · HK Jiuzhentang')}>
+    {type === 'wallet' && <><div className="grid grid-cols-2 gap-3"><div className="soft-card p-5"><span>HBH</span><strong className="block text-4xl my-3">{state.hbh}</strong><span className="muted">{t('体验积分', 'Demo points')}</span></div><div className="soft-card p-5"><span>Solano</span><strong className="block text-4xl my-3">{state.solano}</strong><span className="muted">{t('尚未连接', 'Not connected')}</span></div></div><p className="muted my-5">{t('当前为本机体验账本，不可兑换现金。Solano 为您提供的积分名称；尚未连接外部积分或链上钱包。', 'This is a local demo ledger with no cash value. Solano uses your requested name; no external points or blockchain wallet is connected.')}</p><button className="primary-btn w-full" disabled={claimed('daily')} onClick={() => claim('daily', 20)}><Gift size={17}/>{claimed('daily') ? t('今日已签到', 'Checked in today') : t('每日签到 +20 HBH', 'Daily check-in +20 HBH')}</button><h3 className="mt-6 mb-3 font-semibold">{t('奖励记录', 'Reward history')}</h3>{state.claims.length ? state.claims.slice().reverse().map((c, i) => <div key={c} className="py-3 border-t flex justify-between gap-3"><span>{c.startsWith('daily:') ? t('每日签到', 'Daily check-in') : t('阅读奖励', 'Reading reward')}</span><span className="muted text-xs">{c.split(':').slice(1).join(':')}</span></div>) : <p className="muted">{t('还没有奖励记录', 'No rewards yet')}</p>}</>}
+    {type === 'role' && <><p className="demo-note mb-4">{t('仅切换体验视角，不授予权限。真实多用户身份与访问隔离尚未启用。', 'Preview perspectives only, not access permissions. Multi-user identity and data isolation are not enabled.')}</p>{/** @type {Array<[import('lucide-react').LucideIcon, string, string, string]>} */ ([[UserRound,'user','我的中心','My Center'],[Users,'agent','代理商工作台','Agent'],[Store,'merchant','异业联盟商家','Merchant'],[ShieldCheck,'admin','管理员 CRM','Admin CRM']]).map(([Icon,role,zh,en]) => <button key={role} className="portal-row" onClick={() => { navigate({ user: '/crm?role=user&tab=account', agent: '/partner', merchant: '/seller', admin: '/crm?role=admin' }[role]); setType(null); }}><Icon size={20}/><span className="flex-1 text-left">{t(zh,en)}</span><ArrowUpRight size={17}/></button>)}</>}
+    {type === 'sources' && <AboutHBS onNavigate={() => setType(null)}/>}
+  </ResponsivePanel>;
+}

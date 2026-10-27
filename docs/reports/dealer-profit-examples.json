@@ -1,0 +1,1099 @@
+{
+  "rule_version": "dealer-v3-2026-10-27",
+  "currency": "SGD",
+  "rounding": "half up per recipient to integer cents",
+  "scenarios": [
+    {
+      "tier": "partner",
+      "category": "general",
+      "first": true,
+      "partner_funding": "headquarters",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "seller",
+          "component": "rebate",
+          "amount_cents": 15900,
+          "rate": 30,
+          "note": "全业产品返利 30%"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        },
+        {
+          "user_id": "ref1",
+          "component": "referral",
+          "amount_cents": 4240,
+          "rate": 8,
+          "note": "总部承担：同级介绍首笔完成销售的一次性居间奖励 8%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        }
+      ],
+      "net_sgd": {
+        "seller": 259,
+        "ref1": 68.9,
+        "ref2": 15.9,
+        "ref3": 10.6
+      }
+    },
+    {
+      "tier": "partner",
+      "category": "general",
+      "first": true,
+      "partner_funding": "designated",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "seller",
+          "component": "rebate",
+          "amount_cents": 15900,
+          "rate": 30,
+          "note": "全业产品返利 30%"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "designated-partner",
+          "component": "reward_cost",
+          "amount_cents": -5300,
+          "rate": 0,
+          "note": "承担直属下级的同级介绍回款奖励（5%/3%/2%分别取分后合计）",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "ref1",
+          "component": "referral",
+          "amount_cents": 4240,
+          "rate": 8,
+          "note": "总部承担：同级介绍首笔完成销售的一次性居间奖励 8%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        }
+      ],
+      "net_sgd": {
+        "seller": 259,
+        "ref1": 68.9,
+        "ref2": 15.9,
+        "ref3": 10.6,
+        "designated-partner": -53
+      }
+    },
+    {
+      "tier": "partner",
+      "category": "general",
+      "first": false,
+      "partner_funding": "headquarters",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "seller",
+          "component": "rebate",
+          "amount_cents": 15900,
+          "rate": 30,
+          "note": "全业产品返利 30%"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        }
+      ],
+      "net_sgd": {
+        "seller": 259,
+        "ref1": 26.5,
+        "ref2": 15.9,
+        "ref3": 10.6
+      }
+    },
+    {
+      "tier": "partner",
+      "category": "general",
+      "first": false,
+      "partner_funding": "designated",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "seller",
+          "component": "rebate",
+          "amount_cents": 15900,
+          "rate": 30,
+          "note": "全业产品返利 30%"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "designated-partner",
+          "component": "reward_cost",
+          "amount_cents": -5300,
+          "rate": 0,
+          "note": "承担直属下级的同级介绍回款奖励（5%/3%/2%分别取分后合计）",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        }
+      ],
+      "net_sgd": {
+        "seller": 259,
+        "ref1": 26.5,
+        "ref2": 15.9,
+        "ref3": 10.6,
+        "designated-partner": -53
+      }
+    },
+    {
+      "tier": "partner",
+      "category": "genecells",
+      "first": true,
+      "partner_funding": "headquarters",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        },
+        {
+          "user_id": "ref1",
+          "component": "referral",
+          "amount_cents": 4240,
+          "rate": 8,
+          "note": "总部承担：同级介绍首笔完成销售的一次性居间奖励 8%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        }
+      ],
+      "net_sgd": {
+        "seller": 100,
+        "ref1": 68.9,
+        "ref2": 15.9,
+        "ref3": 10.6
+      }
+    },
+    {
+      "tier": "partner",
+      "category": "genecells",
+      "first": true,
+      "partner_funding": "designated",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "designated-partner",
+          "component": "reward_cost",
+          "amount_cents": -5300,
+          "rate": 0,
+          "note": "承担直属下级的同级介绍回款奖励（5%/3%/2%分别取分后合计）",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "ref1",
+          "component": "referral",
+          "amount_cents": 4240,
+          "rate": 8,
+          "note": "总部承担：同级介绍首笔完成销售的一次性居间奖励 8%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        }
+      ],
+      "net_sgd": {
+        "seller": 100,
+        "ref1": 68.9,
+        "ref2": 15.9,
+        "ref3": 10.6,
+        "designated-partner": -53
+      }
+    },
+    {
+      "tier": "partner",
+      "category": "genecells",
+      "first": false,
+      "partner_funding": "headquarters",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        }
+      ],
+      "net_sgd": {
+        "seller": 100,
+        "ref1": 26.5,
+        "ref2": 15.9,
+        "ref3": 10.6
+      }
+    },
+    {
+      "tier": "partner",
+      "category": "genecells",
+      "first": false,
+      "partner_funding": "designated",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        },
+        {
+          "user_id": "designated-partner",
+          "component": "reward_cost",
+          "amount_cents": -5300,
+          "rate": 0,
+          "note": "承担直属下级的同级介绍回款奖励（5%/3%/2%分别取分后合计）",
+          "payer_kind": "dealer",
+          "payer_user_id": "designated-partner"
+        }
+      ],
+      "net_sgd": {
+        "seller": 100,
+        "ref1": 26.5,
+        "ref2": 15.9,
+        "ref3": 10.6,
+        "designated-partner": -53
+      }
+    },
+    {
+      "tier": "official",
+      "category": "general",
+      "first": true,
+      "partner_funding": "fixed",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "seller",
+          "component": "rebate",
+          "amount_cents": 10600,
+          "rate": 20,
+          "note": "全业产品返利 20%"
+        },
+        {
+          "user_id": "partner",
+          "component": "share",
+          "amount_cents": 5300,
+          "rate": 10,
+          "note": "下级渠道成交的合伙人渠道分润 10%"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "partner",
+          "component": "reward_cost",
+          "amount_cents": -5300,
+          "rate": 0,
+          "note": "承担直属下级的同级介绍回款奖励（5%/3%/2%分别取分后合计）",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "ref1",
+          "component": "referral",
+          "amount_cents": 4240,
+          "rate": 8,
+          "note": "总部承担：同级介绍首笔完成销售的一次性居间奖励 8%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        }
+      ],
+      "net_sgd": {
+        "seller": 206,
+        "partner": 0,
+        "ref1": 68.9,
+        "ref2": 15.9,
+        "ref3": 10.6
+      }
+    },
+    {
+      "tier": "official",
+      "category": "general",
+      "first": false,
+      "partner_funding": "fixed",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "seller",
+          "component": "rebate",
+          "amount_cents": 10600,
+          "rate": 20,
+          "note": "全业产品返利 20%"
+        },
+        {
+          "user_id": "partner",
+          "component": "share",
+          "amount_cents": 5300,
+          "rate": 10,
+          "note": "下级渠道成交的合伙人渠道分润 10%"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "partner",
+          "component": "reward_cost",
+          "amount_cents": -5300,
+          "rate": 0,
+          "note": "承担直属下级的同级介绍回款奖励（5%/3%/2%分别取分后合计）",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        }
+      ],
+      "net_sgd": {
+        "seller": 206,
+        "partner": 0,
+        "ref1": 26.5,
+        "ref2": 15.9,
+        "ref3": 10.6
+      }
+    },
+    {
+      "tier": "official",
+      "category": "genecells",
+      "first": true,
+      "partner_funding": "fixed",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "partner",
+          "component": "reward_cost",
+          "amount_cents": -5300,
+          "rate": 0,
+          "note": "承担直属下级的同级介绍回款奖励（5%/3%/2%分别取分后合计）",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "ref1",
+          "component": "referral",
+          "amount_cents": 4240,
+          "rate": 8,
+          "note": "总部承担：同级介绍首笔完成销售的一次性居间奖励 8%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        }
+      ],
+      "net_sgd": {
+        "seller": 100,
+        "ref1": 68.9,
+        "ref2": 15.9,
+        "ref3": 10.6,
+        "partner": -53
+      }
+    },
+    {
+      "tier": "official",
+      "category": "genecells",
+      "first": false,
+      "partner_funding": "fixed",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        },
+        {
+          "user_id": "partner",
+          "component": "reward_cost",
+          "amount_cents": -5300,
+          "rate": 0,
+          "note": "承担直属下级的同级介绍回款奖励（5%/3%/2%分别取分后合计）",
+          "payer_kind": "dealer",
+          "payer_user_id": "partner"
+        }
+      ],
+      "net_sgd": {
+        "seller": 100,
+        "ref1": 26.5,
+        "ref2": 15.9,
+        "ref3": 10.6,
+        "partner": -53
+      }
+    },
+    {
+      "tier": "agent",
+      "category": "general",
+      "first": true,
+      "partner_funding": "fixed",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "seller",
+          "component": "rebate",
+          "amount_cents": 5300,
+          "rate": 10,
+          "note": "全业产品返利 10%"
+        },
+        {
+          "user_id": "official",
+          "component": "share",
+          "amount_cents": 5300,
+          "rate": 10,
+          "note": "下级总代成交的官方渠道分润 10%"
+        },
+        {
+          "user_id": "partner",
+          "component": "share",
+          "amount_cents": 5300,
+          "rate": 10,
+          "note": "下级渠道成交的合伙人渠道分润 10%"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "official",
+          "component": "reward_cost",
+          "amount_cents": -5300,
+          "rate": 0,
+          "note": "承担直属下级的同级介绍回款奖励（5%/3%/2%分别取分后合计）",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "ref1",
+          "component": "referral",
+          "amount_cents": 4240,
+          "rate": 8,
+          "note": "总部承担：同级介绍首笔完成销售的一次性居间奖励 8%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        }
+      ],
+      "net_sgd": {
+        "seller": 153,
+        "official": 0,
+        "partner": 53,
+        "ref1": 68.9,
+        "ref2": 15.9,
+        "ref3": 10.6
+      }
+    },
+    {
+      "tier": "agent",
+      "category": "general",
+      "first": false,
+      "partner_funding": "fixed",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "seller",
+          "component": "rebate",
+          "amount_cents": 5300,
+          "rate": 10,
+          "note": "全业产品返利 10%"
+        },
+        {
+          "user_id": "official",
+          "component": "share",
+          "amount_cents": 5300,
+          "rate": 10,
+          "note": "下级总代成交的官方渠道分润 10%"
+        },
+        {
+          "user_id": "partner",
+          "component": "share",
+          "amount_cents": 5300,
+          "rate": 10,
+          "note": "下级渠道成交的合伙人渠道分润 10%"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "official",
+          "component": "reward_cost",
+          "amount_cents": -5300,
+          "rate": 0,
+          "note": "承担直属下级的同级介绍回款奖励（5%/3%/2%分别取分后合计）",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        }
+      ],
+      "net_sgd": {
+        "seller": 153,
+        "official": 0,
+        "partner": 53,
+        "ref1": 26.5,
+        "ref2": 15.9,
+        "ref3": 10.6
+      }
+    },
+    {
+      "tier": "agent",
+      "category": "genecells",
+      "first": true,
+      "partner_funding": "fixed",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "official",
+          "component": "reward_cost",
+          "amount_cents": -5300,
+          "rate": 0,
+          "note": "承担直属下级的同级介绍回款奖励（5%/3%/2%分别取分后合计）",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "ref1",
+          "component": "referral",
+          "amount_cents": 4240,
+          "rate": 8,
+          "note": "总部承担：同级介绍首笔完成销售的一次性居间奖励 8%",
+          "payer_kind": "headquarters",
+          "payer_user_id": ""
+        }
+      ],
+      "net_sgd": {
+        "seller": 100,
+        "ref1": 68.9,
+        "ref2": 15.9,
+        "ref3": 10.6,
+        "official": -53
+      }
+    },
+    {
+      "tier": "agent",
+      "category": "genecells",
+      "first": false,
+      "partner_funding": "fixed",
+      "received_sgd": 530,
+      "cost_sgd": 430,
+      "entries": [
+        {
+          "user_id": "seller",
+          "component": "margin",
+          "amount_cents": 10000,
+          "rate": 0,
+          "note": "商品毛差额：实收金额减实际进货成本（先进先出）"
+        },
+        {
+          "user_id": "ref1",
+          "component": "downline",
+          "amount_cents": 2650,
+          "rate": 5,
+          "note": "同级介绍第 1 级销售回款奖励 5%",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "ref2",
+          "component": "downline",
+          "amount_cents": 1590,
+          "rate": 3,
+          "note": "同级介绍第 2 级销售回款奖励 3%",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "ref3",
+          "component": "downline",
+          "amount_cents": 1060,
+          "rate": 2,
+          "note": "同级介绍第 3 级销售回款奖励 2%",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        },
+        {
+          "user_id": "official",
+          "component": "reward_cost",
+          "amount_cents": -5300,
+          "rate": 0,
+          "note": "承担直属下级的同级介绍回款奖励（5%/3%/2%分别取分后合计）",
+          "payer_kind": "dealer",
+          "payer_user_id": "official"
+        }
+      ],
+      "net_sgd": {
+        "seller": 100,
+        "ref1": 26.5,
+        "ref2": 15.9,
+        "ref3": 10.6,
+        "official": -53
+      }
+    }
+  ]
+}

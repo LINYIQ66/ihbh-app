@@ -1,0 +1,22 @@
+export const wellnessCategories = /** @type {Array<[string, string, string, Array<string>, string, string]>} */ ([
+  ['eyes','眼部营养','Eye care',['goji','black_goji'],'枸杞与日常膳食搭配','Goji and balanced daily nutrition'],
+  ['hair','头发养护','Hair care',['ejiao','black_goji','hair_nutrition'],'关注均衡蛋白质与食养','Focus on balanced protein and food rituals'],
+  ['skin','肌肤养护','Skin care',['birdnest','fish_maw','skin_nutrition'],'从日常饮食关注肌肤状态','Support your routine through balanced eating'],
+  ['sleep','睡眠休息','Sleep & rest',['lily','lotus'],'百合与莲子食养灵感','Lily bulbs and lotus seed inspiration'],
+  ['energy','日常活力','Daily energy',['ginseng','cordyceps'],'参类食养与生活节律','Ginseng traditions and daily rhythms'],
+  ['digestion','消化养护','Digestive wellness',['chenpi','yam','poria','probiotics','digestive_enzymes'],'陈皮、山药与茯苓食养','Chenpi, yam and poria food traditions'],
+  ['immunity','日常防护','Everyday resilience',['lingzhi','herbal'],'多样饮食与健康习惯','Varied foods and healthy habits'],
+  ['bones','骨骼营养','Bone nutrition',['sea_cucumber','fish_maw'],'关注日常优质营养摄取','Explore balanced nutrient intake'],
+  ['joints','关节活动','Joint movement',['sea_cucumber','fish_maw'],'日常活动与饮食平衡','Movement and balanced meals'],
+  ['heart','心脏健康','Heart wellness',['goji','herbal'],'日常健康饮食灵感','Everyday balanced eating ideas'],
+  ['brain','专注思考','Focus & clarity',['ginseng','goji'],'关注休息与均衡饮食','Rest and balanced nutrition'],
+  ['liver','肝脏养护','Liver wellness',['goji','black_goji'],'认识传统枸杞食养文化','Explore goji food traditions'],
+  ['kidneys','肾脏养护','Kidney wellness',['yam','lotus'],'山药与莲子的家常食养','Yam and lotus seeds in everyday food'],
+  ['lungs','呼吸舒适','Respiratory wellness',['lily','dendrobium'],'百合与石斛食养文化','Lily and dendrobium food traditions'],
+  ['gut','肠道日常','Gut balance',['poria','yam','probiotics'],'温和饮食与规律生活','Gentle meals and daily routine'],
+  ['muscle','肌肉营养','Muscle nutrition',['sea_cucumber','fish_maw'],'重视日常蛋白质来源','Explore everyday protein sources'],
+  ['women','女性食养','Women’s wellness',['ejiao','birdnest'],'传统滋养食材参考','Traditional nourishing ingredients'],
+  ['men','男性食养','Men’s wellness',['ginseng','deer_antler'],'参类与传统食养参考','Ginseng and food traditions'],
+  ['seniors','乐龄','Healthy ageing',['ginseng','yam'],'从日常饮食关注长者需要','Thoughtful nutrition for later life'],
+  ['fitness','运动恢复','Active living',['sea_cucumber','ginseng'],'饮食、休息与活动的平衡','Balance food, rest and activity']
+]);

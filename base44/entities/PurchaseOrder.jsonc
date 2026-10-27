@@ -1,0 +1,146 @@
+{
+  "name": "PurchaseOrder",
+  "type": "object",
+  "properties": {
+    "dealer_name": {
+      "type": "string"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "product_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "qty": {
+            "type": "number"
+          },
+          "sale_category": {
+            "type": "string",
+            "enum": [
+              "general",
+              "genecells"
+            ]
+          }
+        }
+      }
+    },
+    "amount": {
+      "type": "number",
+      "minimum": 0.01
+    },
+    "is_first": {
+      "type": "boolean",
+      "default": false
+    },
+    "balance_used": {
+      "type": "number",
+      "default": 0,
+      "minimum": 0
+    },
+    "balance_credit": {
+      "type": "number",
+      "default": 0,
+      "minimum": 0
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "paid",
+        "received",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "note": {
+      "type": "string"
+    },
+    "received_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "transaction_id": {
+      "type": "string"
+    },
+    "transaction_status": {
+      "type": "string",
+      "enum": [
+        "prepared",
+        "posted"
+      ]
+    },
+    "transaction_revision": {
+      "type": "string",
+      "rls": {
+        "write": false
+      }
+    },
+    "legacy_reviewed": {
+      "type": "boolean"
+    },
+    "review_note": {
+      "type": "string"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "dealer_tier": {
+      "type": "string",
+      "enum": [
+        "partner",
+        "official",
+        "agent"
+      ]
+    }
+  },
+  "required": [
+    "items",
+    "amount",
+    "status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "$and": [
+            {
+              "$or": [
+                {
+                  "data.user_id": "{{user.id}}"
+                },
+                {
+                  "created_by_id": "{{user.id}}"
+                }
+              ]
+            },
+            {
+              "data.transaction_status": {
+                "$ne": "prepared"
+              }
+            }
+          ]
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": false,
+    "update": false,
+    "delete": false
+  }
+}

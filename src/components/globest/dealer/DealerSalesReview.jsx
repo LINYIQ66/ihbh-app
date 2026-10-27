@@ -1,0 +1,13 @@
+import React, { useEffect } from 'react';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { base44 } from '@/api/base44Client';
+import DealerSaleReviewRow from '@/components/globest/dealer/DealerSaleReviewRow';
+
+export default function DealerSalesReview() {
+  const qc = useQueryClient();
+  const query = useInfiniteQuery({ queryKey: ['dealer-sales-review'], initialPageParam: null, queryFn: ({ pageParam }) => base44.entities.ShipOrder.filter({ transaction_status: {$ne:'prepared'}, kind: { $ne: 'self_use' }, $or: [{ status: 'shipped' }, { status: 'completed', $or:[{settlement_state: { $ne: 'posted' }},{finance_pending:{$nin:['',null]},finance_version:{$exists:true}}] }] }, { sort: '-created_date', limit: 20, ...(pageParam ? { cursor: pageParam } : {}) }), getNextPageParam: page => page.has_more ? page.next_cursor : undefined });
+  const refresh = () => Promise.all([qc.invalidateQueries({ queryKey: ['dealer-sales-review'] }), qc.invalidateQueries({ queryKey: ['dealer-overview'] }), qc.invalidateQueries({ queryKey: ['dealer-ledger'] }), qc.invalidateQueries({ queryKey: ['dealer-performance'] })]);
+  useEffect(() => base44.entities.ShipOrder.subscribe(() => qc.invalidateQueries({ queryKey: ['dealer-sales-review'] })), [qc]);
+  const items = query.data?.pages.flatMap(page => page.items) || [];
+  return <section className="space-y-4 rounded-2xl border border-border bg-card p-4 sm:p-5"><div className="flex items-center justify-between gap-3"><h2 className="font-semibold text-primary">销售完成与自动入账</h2><button type="button" onClick={refresh} className="min-h-11 rounded-lg px-3 text-xs text-primary underline">刷新待办</button></div><p className="text-xs text-muted-foreground">仅在核实实收及履约完成后确认，所有适用收益随订单完成自动叠加入账。</p>{query.isPending && <p role="status" className="text-sm text-muted-foreground">正在加载待处理销售单…</p>}{query.isError && <p role="alert" className="text-sm text-destructive">销售单读取失败。</p>}{query.isSuccess && !items.length && <p role="status" className="py-4 text-center text-sm text-muted-foreground">暂无待完成或待入账销售单。</p>}{items.map(order => <DealerSaleReviewRow key={order.id} order={order} onDone={refresh}/>)}{query.hasNextPage && <button type="button" disabled={query.isFetchingNextPage} onClick={() => query.fetchNextPage()} className="min-h-11 w-full rounded-lg border border-border text-sm text-primary">{query.isFetchingNextPage ? '正在加载…' : '加载更多待办'}</button>}</section>;
+}

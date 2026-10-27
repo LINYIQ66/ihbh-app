@@ -1,0 +1,84 @@
+{
+  "name": "MemberProfile",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "tier": {
+      "type": "string",
+      "enum": [
+        "standard",
+        "vip",
+        "prestige"
+      ]
+    },
+    "membership_fee": {
+      "type": "number"
+    },
+    "points_balance": {
+      "type": "number",
+      "default": 0
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "paid",
+        "refunded",
+        "test"
+      ]
+    },
+    "stripe_customer_id": {
+      "type": "string"
+    },
+    "stripe_session_id": {
+      "type": "string"
+    },
+    "joined_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "transaction_status": {
+      "type": "string"
+    },
+    "transaction_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "email",
+    "tier",
+    "membership_fee",
+    "payment_status"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "$and": [
+            {
+              "data.user_id": "{{user.id}}"
+            },
+            {
+              "data.transaction_status": "posted"
+            }
+          ]
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": false,
+    "update": false,
+    "delete": false
+  }
+}

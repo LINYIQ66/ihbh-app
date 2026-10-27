@@ -1,0 +1,120 @@
+{
+  "name": "LocalListing",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "food",
+        "beauty",
+        "home",
+        "activities",
+        "health",
+        "pets",
+        "auto",
+        "education"
+      ]
+    },
+    "area": {
+      "type": "string"
+    },
+    "avg_price": {
+      "type": "number"
+    },
+    "deal": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "image": {
+      "type": "string"
+    },
+    "service_name": {
+      "type": "string"
+    },
+    "service_price": {
+      "type": "number"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "approval_status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "published",
+        "rejected"
+      ],
+      "default": "pending"
+    }
+  },
+  "required": [
+    "name",
+    "category",
+    "area",
+    "service_name",
+    "service_price"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.approval_status": "published"
+        },
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "$and": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "data.approval_status": "pending"
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "$and": [
+            {
+              "created_by_id": "{{user.id}}"
+            },
+            {
+              "data.approval_status": "pending"
+            }
+          ]
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

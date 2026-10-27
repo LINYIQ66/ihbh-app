@@ -1,0 +1,9 @@
+import React from 'react';
+import { Gift } from 'lucide-react';
+import { useExperience } from '@/components/globest/ExperienceProvider';
+import GameBoard from '@/components/globest/GameBoard';
+import GinsengPlant from '@/components/globest/GinsengPlant';
+export default function Garden() {
+  const { t, claimed, claim } = useExperience();
+  return <div className="page-inner"><div className="page-title"><span className="eyebrow">YOUR LITTLE GINSENG SANCTUARY</span><h1>{t('一方参园，慢慢生长', 'Small roots. Wonderful beginnings.')}</h1><p>{t('种下幼参，合成珍品。在一方小天地里，享受静心生长的乐趣。', 'Plant a seedling, pair your roots, and enjoy the quiet pleasure of growing something good.')}</p></div><div className="garden-layout"><div className="garden-stage"><GameBoard/></div><div className="garden-instructions"><GinsengPlant level={6}/><h2>{t('把日常，养成美好', 'Make room for a little growth.')}</h2>{[['1','种下幼参','Plant your seedling','点击种植按钮，将 1 级幼参种在空地。','Add a level-one seedling to an open plot.'],['2','合成升级','Pair and grow','点击两支同等级人参，合成为更高一级。','Select two matching roots to grow to the next level.'],['3','收获参王','Nurture a master root','一路合成至 6 级，解锁您的珍品参王。','Merge your way to level six and grow a master root.']].map(([n,z,e,sub,sube])=><div className="garden-step" key={n}><span>{n}</span><div><b>{t(z,e)}</b><small>{t(sub,sube)}</small></div></div>)}<button className="primary-btn w-full mt-7" disabled={claimed('daily')} onClick={()=>claim('daily',20)}><Gift size={17}/>{claimed('daily') ? t('今日签到已完成', 'Daily check-in complete') : t('每日签到 +20 HBH', 'Daily check-in +20 HBH')}</button><p className="demo-note">{t('进度保存在此浏览器。小游戏不涉及现金、代币交易或随机付费奖励。人参等级为游戏设定，不代表真实参龄。', 'Progress is saved in this browser. No cash, token trading or paid randomized rewards. Levels are game mechanics, not actual ginseng age.')}</p></div></div></div>;
+}

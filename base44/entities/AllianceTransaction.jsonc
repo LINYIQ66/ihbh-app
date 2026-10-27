@@ -1,0 +1,60 @@
+{
+  "name": "AllianceTransaction",
+  "type": "object",
+  "properties": {
+    "alliance_id": {
+      "type": "string",
+      "description": "AllianceApplication id"
+    },
+    "business_name": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "sale",
+        "referral",
+        "refund"
+      ],
+      "default": "sale"
+    },
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "alliance_id",
+    "business_name",
+    "amount",
+    "date"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

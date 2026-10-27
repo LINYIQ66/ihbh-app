@@ -1,0 +1,43 @@
+{
+  "name": "BankCard",
+  "type": "object",
+  "properties": {
+    "bank": {
+      "type": "string"
+    },
+    "holder": {
+      "type": "string"
+    },
+    "last4": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "bank",
+    "holder",
+    "last4"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

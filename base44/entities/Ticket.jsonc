@@ -1,0 +1,138 @@
+{
+  "name": "Ticket",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": [
+        "event",
+        "venue",
+        "service",
+        "coupon"
+      ]
+    },
+    "ref_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "code": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "amount": {
+      "type": "number",
+      "default": 0
+    },
+    "note": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "unused",
+        "used",
+        "cancelled"
+      ],
+      "default": "unused"
+    },
+    "used_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "user_id": {
+      "type": "string"
+    },
+    "transaction_id": {
+      "type": "string"
+    },
+    "transaction_status": {
+      "type": "string",
+      "enum": [
+        "prepared",
+        "posted"
+      ]
+    },
+    "issued_by": {
+      "type": "string"
+    },
+    "payment_status": {
+      "type": "string",
+      "enum": [
+        "free",
+        "points",
+        "due",
+        "paid"
+      ]
+    },
+    "ends_at": {
+      "type": "string"
+    },
+    "verified_by": {
+      "type": "string"
+    },
+    "points_cost": {
+      "type": "number",
+      "minimum": 0
+    },
+    "transaction_revision": {
+      "type": "string",
+      "rls": {
+        "write": false
+      }
+    },
+    "checkout_ref": {
+      "type": "string"
+    },
+    "legacy_reviewed": {
+      "type": "boolean"
+    },
+    "review_note": {
+      "type": "string"
+    },
+    "reviewed_by": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "kind",
+    "title",
+    "code"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "$and": [
+            {
+              "$or": [
+                {
+                  "data.user_id": "{{user.id}}"
+                },
+                {
+                  "created_by_id": "{{user.id}}"
+                }
+              ]
+            },
+            {
+              "data.transaction_status": {
+                "$ne": "prepared"
+              }
+            }
+          ]
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": false,
+    "update": false,
+    "delete": false
+  }
+}

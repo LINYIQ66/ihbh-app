@@ -1,0 +1,10 @@
+import React, { useState } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { Search, ShoppingBag, ChevronDown, Globe2, ArrowUpRight } from 'lucide-react';
+import BrandLogo from '@/components/globest/BrandLogo';
+import { useExperience } from '@/components/globest/ExperienceProvider';
+export default function Header({ setCart }) {
+  const { state, update } = useExperience(); const t = (zh, _en = '') => zh; const navigate = useNavigate(); const [params] = useSearchParams(); const [search, setSearch] = useState(params.get('q') || '');
+  const submit = e => { e.preventDefault(); navigate(`/?q=${encodeURIComponent(search)}#catalog`); };
+  return <><header className="main-header"><BrandLogo/><form onSubmit={submit} className="header-search"><Search size={17}/><input aria-label={t('搜索商品', 'Search products')} placeholder={t('搜索商品…', 'Search products…')} value={search} onChange={e => setSearch(e.target.value)}/><button type="submit">{t('搜索', 'Search')}</button></form><div className="header-actions"><button className="language-btn" onClick={() => update({ lang: state.lang === 'zh' ? 'en' : 'zh' })} aria-label="切换语言"><Globe2 size={15}/><span className={state.lang === 'zh' ? 'font-bold' : 'muted'}>中</span><span className="muted">/</span><span className={state.lang === 'en' ? 'font-bold' : 'muted'}>英语</span></button><button className="cart-trigger icon-btn" onClick={() => setCart(true)} aria-label={t('购物车', 'Shopping cart')}><ShoppingBag size={21}/>{state.cart.some(p=>p.is_demo===false) && <b>{state.cart.filter(p=>p.is_demo===false).reduce((s,p) => s+p.quantity,0)}</b>}</button><Link className="role-trigger" to="/crm?role=user&tab=account">{t('我的中心', 'My Center')}<ChevronDown size={14}/></Link></div></header><div className="sub-header"><div className="sub-links"><Link to="/discover?section=hbh">{t('HBH专区', 'HBH Zone')}</Link><Link to="/discover?section=global">{t('全球好物', 'Global Finds')}</Link><Link to="/discover?section=local">{t('本地生活', 'Local Living')}</Link><Link to="/live">{t('直播视频', 'Live & Videos')}<ArrowUpRight size={13}/></Link></div></div></>;
+}
