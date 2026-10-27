@@ -15,7 +15,9 @@ export async function postSettlement(client, orderId) {
   );
   if (order.settlement_state === "posted") return { already_posted: true };
   requireThat(
-    order.settlement_rule_version === "dealer-v3-2026-10-27" &&
+    ["dealer-v3-2026-10-27", "dealer-v4-2026-10-27"].includes(
+      order.settlement_rule_version,
+    ) &&
       Array.isArray(order.settlement_snapshot),
     "历史订单需核对分润承担方与规则版本，不能直接重复入账",
     409,

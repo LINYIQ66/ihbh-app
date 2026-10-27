@@ -1,5 +1,7 @@
 # iHBH App — 财务规则与运维说明
 
+最新转介绍规则见 [经销商转介绍规则](DEALER_REFERRAL_RULES.md)。所有等级的 8% 居间费统一由 HBH 体验馆支付；旧快照按原记录保留。
+
 本文保留 2026-10-27 修复版本的分润依据、历史账目核对接口、恢复流程及平台验证边界。
 项目介绍与本地运行方式见 [README](../README.md)，GitHub 发布准备见 [发布说明](GITHUB_RELEASE.md)。
 
@@ -8,7 +10,7 @@
 The user confirmed: the one-time 8% uses the referred dealer's **first completed
 sale with actual receipts**; eligible components stack; peer rewards stop at
 the nearest three referrers (5%, 3%, 2%). The supplied `官方(1).pdf` and
-`总代(1).pdf`, pages 3–4, identify HQ/HBH store as the 8% payer, an Official's
+`总代(1).pdf`, pages 3–4, identify HQ/HBH store as the 8% payer (subsequently clarified by the user as the HBH experience hall), an Official's
 direct Partner as its peer-reward payer, and an Agent's direct Official as its
 peer-reward payer. These costs are now negative `reward_cost` entries for the
 funding account. All rewards use integer cents, rounded half-up separately per
@@ -56,7 +58,7 @@ Example: general-product Agent sale, received S$530, cost S$430, with a direct
 Official, upstream Partner and three peer referrers. Agent earns S$153; Official
 has +S$53 channel share and −S$53 funding expense (net S$0); Partner gets S$53;
 peer referrers get S$68.90, S$15.90 and S$10.60 on the first paid sale. The first
-referrer's S$68.90 includes S$42.40 paid by HQ. On later sales, no second 8% is
+referrer's S$68.90 includes S$42.40 paid by the HBH experience hall. On later sales, no second 8% is
 issued. The fourth peer referrer gets zero.
 
 Historical shipments without a verifiable lot assignment block new inventory
@@ -67,7 +69,7 @@ can call `reconcileFinance` with `action: 'inventory'`, `user_id`, `confirmed`,
 All missing active allocations for that user must be supplied together. The
 server verifies quantities, original recorded costs, no batch overuse and known
 categories. It will not silently rewrite an incorrect historical cost. Old
-completed settlements without the v3 rule snapshot must be reviewed separately;
+completed settlements without a supported v3/v4 rule snapshot must be reviewed separately;
 already posted historical earnings are not automatically recomputed or debited.
 
 ## General repair details

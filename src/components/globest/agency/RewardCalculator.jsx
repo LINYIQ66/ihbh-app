@@ -15,7 +15,7 @@ export default function RewardCalculator() {
     <div className="mt-2 flex justify-between rounded-xl bg-[#8a5a2b] p-3 text-white"><span>{t('逐项取分后合计', 'Total after rounding each reward')}</span><b>{preview?`S$${preview.total.toFixed(2)}`:'—'}</b></div>
     {!preview&&<p role="alert">{t('金额需为非负数，最多两位小数，且不超过 S$1,000,000。','Enter a non-negative amount up to S$1,000,000 with at most two decimal places.')}</p>}
     <ul className="mt-3 list-disc space-y-1 pl-5 text-xs text-muted-foreground">
-      <li>{t('总部按被介绍经销商首笔有实收的完成销售，给予直接介绍人一次性 8% 奖励。', 'HQ pays the direct referrer 8% of the referred dealer’s first completed paid sale, once only.')}</li>
+      <li>{t('HBH 体验馆按被介绍经销商首笔有实收的完成销售，给予直接介绍人一次性 8% 奖励。', 'The HBH experience hall pays the direct referrer 8% of the referred dealer’s first completed paid sale, once only.')}</li>
       <li>{t('超过三代不再向原始推荐人分润。', 'No rewards beyond the 3rd generation.')}</li>
     </ul>
   </div>;

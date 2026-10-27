@@ -1,0 +1,65 @@
+
+> base44-app@0.0.0 test
+> node --test tests/*.test.mjs
+
+✔ actor denies forged ownership and wrong instance IDs (2.5352ms)
+✔ actor denies banned starts and ends an active ban on its managed tick (2.9108ms)
+✔ actor rejects reconnecting a connection id with a different identity (0.8662ms)
+✔ concurrent host starts admit one host (0.8612ms)
+✔ partner: channel share and gross margin match the worked example (2.0466ms)
+✔ official: channel share and gross margin match the worked example (0.2979ms)
+✔ agent: channel share and gross margin match the worked example (0.2496ms)
+✔ agent: first-sale 8% is experience-hall-funded; 5/3/2 balance their official payer exactly (1.0546ms)
+✔ official: the referred official's own partner funds all three peer rewards (0.311ms)
+✔ no referral chain, no referral award; missing mandatory payer blocks rather than inventing funding (0.5304ms)
+✔ invalid hierarchy, self referral, nonfinite and fractional cents are rejected (0.4133ms)
+✔ cent rounding is half-up per recipient and the payer debit equals rounded credits (15.2979ms)
+✔ only the configured super admin may switch partner funding; policy writes are idempotent (6.7799ms)
+✔ partner switch affects future settlements only, with equal recipient credits in both modes (27.7401ms)
+✔ historical stock migration requires exact reviewed lots and does not rewrite existing costs (2.2398ms)
+✔ cancelling an older reservation releases its exact cheap lot without changing later order cost (1.0276ms)
+✔ cross-lot costs, out-of-order completion, oversell and historical mismatches (0.6239ms)
+✔ all three dealer price tiers come from verified server fields, never the retail price or request (1.044ms)
+✔ two concurrent first sales award 8% once; replay never doubles any account or funding debit (11.0724ms)
+✔ settlement resumes after a recipient write fails without paying the payer or recipient twice (5.268ms)
+✔ settlement category is immutable from procurement; client cannot replace it at completion (1.0679ms)
+✔ a zero-receipt completion keeps the loss and does not consume the first paid-sale bonus (5.4433ms)
+✔ partner: A/B/C/D receipts pay only the nearest three; all 8% fees belong to the experience hall (5.4921ms)
+✔ official: A/B/C/D receipts pay only the nearest three; all 8% fees belong to the experience hall (0.6591ms)
+✔ agent: A/B/C/D receipts pay only the nearest three; all 8% fees belong to the experience hall (0.6724ms)
+✔ vertical tier sales earn their actual price spread without inventing a peer referral (0.3817ms)
+✔ v3 and v4 pending settlements preserve their frozen 8% payer across recovery and replay (6.6568ms)
+✔ legacy points require explicit reconciliation before any spending (3.2655ms)
+✔ checkout rejects a changed quoted total before debiting (7.6422ms)
+✔ withdrawable income waits for complete settlement and includes its negative entries (0.8284ms)
+✔ concurrent debits cannot overspend (1.5907ms)
+✔ same request races publish once and return the same receipt (3.8839ms)
+✔ failure after debit before effects is recovered without another charge (1.1062ms)
+✔ lost CAS response is recovered from the account outbox (0.9702ms)
+✔ client spend/SGD and invented article IDs never mint credit (0.8555ms)
+✔ game ignores supplied reward and requires an actual server board merge (0.9572ms)
+✔ checkout reprices catalog and cannot turn a failed payment into an order (1.5686ms)
+✔ failed recipient credit can be retried without double debit (2.5604ms)
+✔ simultaneous opposite transfers terminate and preserve total funds (1.6112ms)
+✔ withdrawals reject negative/nonfinite values and foreign bank cards (4.1566ms)
+✔ purchase prices and first-order credits come from server; approval does not fund balance (1.2256ms)
+✔ event capacity serializes across different users and venue overlaps fail (1.5033ms)
+✔ ticket redemption requires issued provenance, authorization and receipt (1.2265ms)
+✔ membership validates price/app/buyer; test purchase cannot downgrade live tier (1.3153ms)
+✔ AI quota is atomic across concurrent requests (1.9106ms)
+✔ stale finalization cannot reapply an effect after status cycles (1.2135ms)
+✔ retail refund is idempotent and reverses the shopping reward (2.17ms)
+✔ settlement races and lost publication recover without duplicate earnings (1.6159ms)
+✔ financial entities deny direct client writes, including forged paid profiles (16.4222ms)
+✔ all backend source files parse as TypeScript without syntax errors (331.838ms)
+✔ privileged business/AI endpoints reject anonymous requests before accessing service data (152.9923ms)
+✔ an editable partner hint does not grant product publishing privileges (3.2704ms)
+✔ ordinary users cannot invoke financial reconciliation (9.325ms)
+ℹ tests 53
+ℹ suites 0
+ℹ pass 53
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1108.6187

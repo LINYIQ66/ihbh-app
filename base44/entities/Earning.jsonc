@@ -71,7 +71,8 @@
       "type": "string"
     },
     "payer_kind": {
-      "type": "string"
+      "type": "string",
+      "description": "experience_hall：HBH体验馆居间费；dealer：经销商承担；headquarters：总部承担的合伙人回款奖励或旧版历史标识"
     },
     "payer_user_id": {
       "type": "string"

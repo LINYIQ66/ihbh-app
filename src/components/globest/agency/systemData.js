@@ -17,7 +17,7 @@ export const shareScenarios = /** @type {Array<[string, string, number, number, 
 ]);
 export const risks = [
   ['差价 ≠ 净利润', 'Margin ≠ net profit', '商品差价为毛收入，需扣除租金、人工、物流、税费及返款成本后才是净利润。', 'Price spread is gross; rent, staff, logistics, tax and refund costs must be deducted.'],
-  ['首单奖励基数', 'First-sale bonus base', '8% 按被介绍经销商首笔有实收的完成销售计算，只支付一次，由总部承担。', 'HQ funds 8% of the referred dealer’s first completed paid sale, once only.'],
+  ['首单奖励基数', 'First-sale bonus base', '8% 按被介绍经销商首笔有实收的完成销售计算，只支付一次，所有等级的居间费均由 HBH 体验馆支付。', 'The HBH experience hall funds 8% of the referred dealer’s first completed paid sale, once only.'],
   ['返利计算基数', 'Rebate base', '全业 30% / 20% / 10% 按已核实的销售实收计算；GeneCells 不计全业渠道返利。', '30% / 20% / 10% uses verified collected sales; GeneCells is excluded from these channel rebates.'],
   ['奖励承担方', 'Reward funding', '适用收益可叠加；官方/总代的三级奖励分别由其直属合伙人/官方承担，承担方同时记支出。合伙人平级奖励由超级管理员选择总部或指定上级承担。', 'Eligible earnings stack. Peer rewards for Officials/Agents are charged to their direct Partner/Official. Super admin selects HQ or a designated payer for Partner peer rewards.'],
   ['会员赠额负债', 'Bonus liability', '充值赠额与赠品属于未来履约负担，应计入预收负债。', 'Recharge bonuses and gifts are future obligations and should be booked as liabilities.'],

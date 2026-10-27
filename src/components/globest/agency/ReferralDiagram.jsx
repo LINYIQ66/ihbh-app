@@ -9,7 +9,7 @@ export default function ReferralDiagram({ role }) {
   const gens = [0, 1, 2, 3, 4];
   const earn = n => n === 0 ? [] : [[n - 1, 5], [n - 2, 3], [n - 3, 2]].filter(([g]) => g >= 0);
   return <div className="rounded-2xl border bg-card p-4">
-    <div className="mb-3 flex items-center gap-2 font-bold"><Building2 size={18} className="text-red-700" />{t('总部 HQ：被介绍人首笔有实收的完成销售，支付介绍人 8% 一次性奖励', 'HQ pays the introducer an 8% one-time referral bonus on the first completed paid sale')}</div>
+    <div className="mb-3 flex items-center gap-2 font-bold"><Building2 size={18} className="text-red-700" />{t('HBH 体验馆：按被介绍人首笔有实收的完成销售，支付直接介绍人 8% 一次性居间奖励', 'The HBH experience hall pays the direct introducer an 8% one-time referral bonus on the first completed paid sale')}</div>
     <div className="space-y-1">{gens.map(n => <React.Fragment key={n}>
       {n > 0 && <div className="flex items-center gap-2 pl-6 text-xs text-muted-foreground"><ArrowDown size={14} />{t('介绍', 'introduces')}</div>}
       <div className="flex flex-wrap items-center gap-2">

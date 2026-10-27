@@ -68,7 +68,7 @@ for (const tier of ["partner", "official", "agent"])
       30000,
     );
   });
-test("agent: first-sale 8% is HQ-funded; 5/3/2 recipients balance their official payer exactly", () => {
+test("agent: first-sale 8% is experience-hall-funded; 5/3/2 balance their official payer exactly", () => {
   const rows = allocations({
     seller,
     parents,
@@ -88,7 +88,7 @@ test("agent: first-sale 8% is HQ-funded; 5/3/2 recipients balance their official
   );
   assert.equal(
     rows.find((r) => r.component === "referral").payer_kind,
-    "headquarters",
+    "experience_hall",
   );
   assert.equal(
     rows.reduce((n, r) => n + r.amount_cents, 0),
@@ -512,6 +512,8 @@ test("two concurrent first sales award 8% once; replay never doubles any account
     .rows("Earning")
     .filter((r) => r.transaction_status === "posted");
   assert.equal(posted.filter((r) => r.component === "referral").length, 1);
+  assert.equal(posted.find((r) => r.component === "referral").payer_kind, "experience_hall");
+  assert.equal((await c.entities.ShipOrder.get(a.order_id)).settlement_rule_version, "dealer-v4-2026-10-27");
   assert.equal(
     posted
       .filter((r) => r.component === "reward_cost")

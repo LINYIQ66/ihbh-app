@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-27",
+  "rule_version": "dealer-v4-2026-10-27",
+  "confirmed_correction": "C receipts reward B 5%, A 3%, original introducer 2%; D rewards C/B/A only",
+  "intermediary_fee": {
+    "rate_percent": 8,
+    "base": "first completed sale with actual receipts",
+    "payer_kind": "experience_hall",
+    "payer_name": "HBH体验馆",
+    "recipient": "direct same-tier referrer",
+    "once_per_referred_dealer": true
+  },
+  "peer_rewards": {
+    "rates_percent": [
+      5,
+      3,
+      2
+    ],
+    "maximum_levels": 3,
+    "official_payer": "selling Official direct Partner",
+    "agent_payer": "selling Agent direct Official",
+    "partner_policy": "existing super-admin choice of headquarters or designated Partner retained"
+  },
+  "validation": {
+    "tests_passed": 53,
+    "tests_failed": 0,
+    "frontend_typecheck": "passed",
+    "eslint": "passed",
+    "production_build": "passed"
+  },
+  "legacy_snapshots": "v3 and v4 retain stored payer and amount when recovered",
+  "production_deployed": false,
+  "live_platform_integration": "not performed"
+}

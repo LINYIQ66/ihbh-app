@@ -165,7 +165,7 @@ export async function complete(
               status: "completed",
               received_amount: received / 100,
               sale_category: order.sale_category,
-              settlement_rule_version: "dealer-v3-2026-10-27",
+              settlement_rule_version: "dealer-v4-2026-10-27",
               settlement_context: {
                 seller,
                 parents,

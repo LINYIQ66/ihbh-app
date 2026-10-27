@@ -2,6 +2,8 @@
 
 本目录保存本次代码审计、修复及分润核对产生的完整交付资料。
 
+最新规则为 [经销商转介绍规则](../DEALER_REFERRAL_RULES.md)：C 的回款给 B 5%、A 3%、原介绍人 2%，所有等级的 8% 居间费由 HBH 体验馆支付。此次 v4 更新的 53 项测试及构建检查见 `repair-validation/ihbh-referral-*.log`，机器可读结果见 [更新记录](dealer-referral-update.json)。下面的初始报告、ZIP 与补丁保留原交付快照。
+
 | 文件／目录 | 内容 |
 | --- | --- |
 | [globest-mall-audit.html](globest-mall-audit.html) | 原始代码审计报告 |

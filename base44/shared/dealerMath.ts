@@ -198,8 +198,8 @@ export function allocations({
       "referral",
       percent(received, 8),
       8,
-      "总部承担：同级介绍首笔完成销售的一次性居间奖励 8%",
-      { payer_kind: "headquarters", payer_user_id: "" },
+      "HBH体验馆承担：同级介绍首笔有实收的完成销售，一次性居间奖励 8%",
+      { payer_kind: "experience_hall", payer_user_id: "" },
     );
   return rows;
 }

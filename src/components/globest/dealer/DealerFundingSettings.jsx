@@ -50,7 +50,7 @@ export default function DealerFundingSettings({ accounts, users }) {
       <h3 className="font-semibold">合伙人平级奖励承担方式</h3>
       <p className="text-xs text-muted-foreground">
         仅超级管理员可切换。8%
-        一次性奖励始终由总部承担；此开关只控制合伙人平级介绍的
+        一次性居间奖励始终由 HBH 体验馆支付；此开关只控制合伙人平级介绍的
         5%／3%／2%。官方由直属合伙人承担，总代由直属官方承担。
       </p>
       {query.isPending && <p>正在读取配置…</p>}

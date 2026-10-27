@@ -8,7 +8,7 @@ export default function DealerTierBenefits({ level }) {
     { icon: Gift, title: `适用全业产品返利 ${tier.rebate}%`, text: '适用于制度列明的自用或直接关系成交，包括九珍堂滋养系列、氧舱及部分设备。GeneCells 三款产品除外；返利不是商品直接打折，不与消费会员体系同时使用，计算基准及结算条件须确认。' },
     { icon: Wind, title: `每月氧舱体验 ${tier.oxygen} 次`, text: '按月清零，不可累积至下月。适用门店、具体预约安排与可用情况，以门店及正式合作条款确认结果为准。' },
     { icon: Building2, title: '渠道协作与经营定位', text: tier.channel },
-    { icon: Handshake, title: '平级介绍与销售回款规则', text: `现有制度列明平级介绍一次性居间奖励 8%，以及三代销售回款奖励 5% / 3% / 2%，只支付最近三位同级介绍人。销售回款奖励由${tier.payerZh.replace(/支付$/, '')}支付；8% 按首笔销售实收只计一次；适用项目可叠加，承担方同步记支出，不代表固定收入。` }
+    { icon: Handshake, title: '平级介绍与销售回款规则', text: `现有制度列明平级介绍一次性居间奖励 8%，以及三代销售回款奖励 5% / 3% / 2%，只支付最近三位同级介绍人。销售回款奖励由${tier.payerZh.replace(/支付$/, '')}支付；8% 按首笔销售实收只计一次，由 HBH 体验馆支付；适用项目可叠加，承担方同步记支出，不代表固定收入。` }
   ];
   return <section aria-labelledby="dealer-benefits-title" className="rounded-2xl border border-border bg-card p-5 sm:p-7">
     <div className="mb-5 flex items-center gap-3"><ReceiptText size={20} className="text-primary" aria-hidden="true"/><h2 id="dealer-benefits-title" className="font-heading text-xl font-semibold">{tier.zh}专属权益说明</h2></div>
