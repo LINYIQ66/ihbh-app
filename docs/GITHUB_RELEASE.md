@@ -1,6 +1,6 @@
 # iHBH App 独立仓库与发布说明
 
-本仓库为用户要求新建的私有仓库，用于保存完整修复成果。仓库地址：https://github.com/LINYIQ66/ihbh-app
+本仓库为用户要求新建、并于 2026-10-27 改为公开的独立仓库，用于保存完整修复成果。仓库地址：https://github.com/LINYIQ66/ihbh-app
 
 - 默认开发基线为 `main`，后续修改通过功能分支与 PR 审查。
 - 不修改或替换原 `LINYIQ66/globest-mall` 仓库，也未将新仓库绑定到正式 Base44 应用。

@@ -9,7 +9,7 @@
 | [dealer-profit-review.html](dealer-profit-review.html) | 经销商分润规则、承担方和对账示例 |
 | [dealer-profit-examples.json](dealer-profit-examples.json) | 16 组计算结果 |
 | [repair-validation](repair-validation) | 48 项测试及类型、Lint、构建、依赖检查记录 |
-| [dealer-source](dealer-source) | 用户提供的三份规则 PDF 及核对页图像，仅随本私有仓库保留 |
+| [dealer-source](dealer-source) | 用户提供的三份规则 PDF 及核对页图像，随本公开仓库提供 |
 | [github-upload-preparation.html](github-upload-preparation.html) | 原仓库自动部署检查与上传准备记录 |
 | [globest-mall-repaired.zip](globest-mall-repaired.zip) | 新建仓库前的源码交付快照 |
 | [globest-mall-repair.patch](globest-mall-repair.patch) | 原修复分支的提交补丁 |
